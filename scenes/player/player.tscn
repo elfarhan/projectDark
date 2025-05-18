@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://dxcvxert3buob"]
+
+[ext_resource type="Script" path="res://scenes/player/player.gd" id="1_johqr"]
+[ext_resource type="Texture2D" uid="uid://cad1i7o6004vl" path="res://icon.svg" id="2_oekbp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bjhaq"]
+
+[node name="Player" type="CharacterBody2D"]
+scale = Vector2(0.5, 1)
+script = ExtResource("1_johqr")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_bjhaq")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_oekbp")
+
+[node name="CoyoteTimer" type="Timer" parent="."]
+wait_time = 0.1
+
+[node name="JumpBufferTimer" type="Timer" parent="."]
+wait_time = 0.1

@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://bxhpae2udrhjy"]
+
+[ext_resource type="PackedScene" uid="uid://5uobor5tx880" path="res://scenes/platform/Platform.tscn" id="1_idu7a"]
+[ext_resource type="PackedScene" uid="uid://dxcvxert3buob" path="res://scenes/player/player.tscn" id="2_gya0h"]
+
+[node name="Main" type="Node2D"]
+
+[node name="Platform" parent="." instance=ExtResource("1_idu7a")]
+position = Vector2(600, 456)
+
+[node name="Player" parent="." instance=ExtResource("2_gya0h")]
+position = Vector2(600, 376)
+platform_wall_layers = 1
