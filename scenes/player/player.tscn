@@ -1,9 +1,46 @@
-[gd_scene load_steps=4 format=3 uid="uid://dxcvxert3buob"]
+[gd_scene load_steps=9 format=3 uid="uid://dxcvxert3buob"]
 
-[ext_resource type="Script" path="res://scenes/player/player.gd" id="1_johqr"]
-[ext_resource type="Texture2D" uid="uid://cad1i7o6004vl" path="res://icon.svg" id="2_oekbp"]
+[ext_resource type="Script" uid="uid://2nvoq7dsv0" path="res://scenes/player/player.gd" id="1_johqr"]
+[ext_resource type="Texture2D" uid="uid://dg7cpjbmwk8uc" path="res://Screenshot_2025-05-19_at_23.26.32-removebg-preview.png" id="2_dovo2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bjhaq"]
+size = Vector2(72, 65)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_feb5d"]
+atlas = ExtResource("2_dovo2")
+region = Rect2(0, 0, 133, 118)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fc0e3"]
+atlas = ExtResource("2_dovo2")
+region = Rect2(133, 0, 133, 118)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7jktm"]
+atlas = ExtResource("2_dovo2")
+region = Rect2(266, 0, 133, 118)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ryrav"]
+atlas = ExtResource("2_dovo2")
+region = Rect2(399, 0, 133, 118)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gmlin"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_feb5d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fc0e3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7jktm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ryrav")
+}],
+"loop": true,
+"name": &"default",
+"speed": 6.0
+}]
 
 [node name="Player" type="CharacterBody2D"]
 scale = Vector2(0.5, 1)
@@ -11,13 +48,15 @@ script = ExtResource("1_johqr")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-32, 12.5)
 shape = SubResource("RectangleShape2D_bjhaq")
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_oekbp")
 
 [node name="CoyoteTimer" type="Timer" parent="."]
 wait_time = 0.1
 
 [node name="JumpBufferTimer" type="Timer" parent="."]
 wait_time = 0.1
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_gmlin")
+frame_progress = 0.533561

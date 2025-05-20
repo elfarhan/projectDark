@@ -1,9 +1,10 @@
 [gd_scene load_steps=2 format=3 uid="uid://5uobor5tx880"]
 
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_0c4lo"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oao85"]
+size = Vector2(197, 20)
 
-[node name="Platform" type="Area2D"]
+[node name="Platform" type="StaticBody2D"]
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("WorldBoundaryShape2D_0c4lo")
+shape = SubResource("RectangleShape2D_oao85")
