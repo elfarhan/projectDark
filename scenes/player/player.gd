@@ -1,10 +1,13 @@
 class_name Player
 extends CharacterBody2D
 
-@onready var coyote_timer = $CoyoteTimer
-@onready var jump_buffer_timer = $JumpBufferTimer
+# Coyote time
+const COYOTE_TIME = 0.2  # seconds
+var coyote_time_remaining = 0.0
 
-
+# Jump buffer (optional)
+const JUMP_BUFFER_TIME = .15
+var jump_buffer_remaining = 0.0
 
 
 @export_group("Movement")
@@ -14,10 +17,11 @@ extends CharacterBody2D
 @export_range(0, 50) var turn_speed := 500.0
 
 @export_group("jump")
-@export_range(0, 5000) var jump_height := 900.0
+@export_range(0, 5000) var max_jump_height := 300.0
+@export_range(0, 5000) var min_jump_height := 200.0
 @export_range(0, 500) var jump_duration := 2.5
-var jump_speed = -2*jump_height/jump_duration
-var jump_cutoff_speed = jump_speed/4
+@onready var jump_speed = -sqrt(2*gravity*min_jump_height)
+@onready var jump_acceleration = gravity*(1-min_jump_height/max_jump_height)
 @export_range(0, 1000) var gravity := 900.0
 
 
@@ -30,7 +34,11 @@ func _get_air_movement(delta: float):
 
 
 func jump():
+	
 	velocity.y = jump_speed
+	jump_buffer_remaining = 0
+	coyote_time_remaining = 0
+	$AnimatedSprite2D.play("default") # jump sprite
 
 # Calculates the players movement depending on the context
 func _get_movement(decel: float, accel: float, turn: float, delta: float):
@@ -67,23 +75,28 @@ func _set_sprite_direction(direction: int) -> void:
 
 
 func _physics_process(delta):
-	if not is_on_floor():
-		velocity.y += gravity* delta
-
-	else:
-		velocity.y = 0
-		if Input.is_action_just_pressed("Jump"):
-			jump()
-			$AnimatedSprite2D.play("default") # jump sprite
-	if Input.is_action_just_released("Jump") and velocity.y < jump_cutoff_speed:
-		velocity.y = jump_cutoff_speed
-	_set_sprite_direction(sign(velocity.x))
 	
-
-	if velocity != Vector2.ZERO:
-		$AnimatedSprite2D.play("default")
+	if Input.is_action_just_pressed("Jump"):
+		if is_on_floor() or coyote_time_remaining > 0:
+			jump()
+		else:
+			jump_buffer_remaining = JUMP_BUFFER_TIME
+	
+	if Input.is_action_pressed("Jump") and velocity.y < 0:
+		velocity.y -= jump_acceleration*delta
+		
+	if is_on_floor():
+		coyote_time_remaining = COYOTE_TIME
+		if jump_buffer_remaining > 0:
+			jump()
+		_set_sprite_direction(sign(velocity.x))
 	else:
-		$AnimatedSprite2D.play("default")
+		velocity.y += gravity * delta
+		jump_buffer_remaining -= delta
+		coyote_time_remaining -= delta
+
+	#if Input.is_action_just_released("Jump") and velocity.y < jump_cutoff_speed:
+	#	velocity.y = jump_cutoff_speed
 		
 	_get_movement(deceleration, acceleration, turn_speed, delta)
 	move_and_slide()
