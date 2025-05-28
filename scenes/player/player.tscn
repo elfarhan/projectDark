@@ -1,10 +1,27 @@
-[gd_scene load_steps=9 format=3 uid="uid://dxcvxert3buob"]
+[gd_scene load_steps=18 format=3 uid="uid://dxcvxert3buob"]
 
 [ext_resource type="Script" uid="uid://2nvoq7dsv0" path="res://scenes/player/player.gd" id="1_johqr"]
 [ext_resource type="Texture2D" uid="uid://dg7cpjbmwk8uc" path="res://Screenshot_2025-05-19_at_23.26.32-removebg-preview.png" id="2_dovo2"]
+[ext_resource type="Texture2D" uid="uid://kdrhs6n7lsv4" path="res://AnimationSheet_Character 3.png" id="3_gmlin"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bjhaq"]
 size = Vector2(72, 65)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gmlin"]
+atlas = ExtResource("3_gmlin")
+region = Rect2(3, 0, 19, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qek5x"]
+atlas = ExtResource("3_gmlin")
+region = Rect2(22, 0, 19, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5gtgg"]
+atlas = ExtResource("3_gmlin")
+region = Rect2(41, 0, 19, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h17s1"]
+atlas = ExtResource("3_gmlin")
+region = Rect2(60, 0, 19, 25)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_feb5d"]
 atlas = ExtResource("2_dovo2")
@@ -22,8 +39,41 @@ region = Rect2(266, 0, 133, 118)
 atlas = ExtResource("2_dovo2")
 region = Rect2(399, 0, 133, 118)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_lvxji"]
+atlas = ExtResource("3_gmlin")
+region = Rect2(0, 0, 28, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p47bc"]
+atlas = ExtResource("3_gmlin")
+region = Rect2(28, 0, 28, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_75vfm"]
+atlas = ExtResource("3_gmlin")
+region = Rect2(56, 0, 28, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0owmy"]
+atlas = ExtResource("3_gmlin")
+region = Rect2(84, 0, 28, 288)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_gmlin"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gmlin")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qek5x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5gtgg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h17s1")
+}],
+"loop": true,
+"name": &"default",
+"speed": 3.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_feb5d")
@@ -42,13 +92,29 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_fc0e3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_gmlin")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lvxji")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p47bc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_75vfm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0owmy")
 }],
 "loop": true,
-"name": &"default",
+"name": &"default_23",
 "speed": 6.0
 }]
 
 [node name="Player" type="CharacterBody2D"]
+position = Vector2(5, -9)
 scale = Vector2(0.5, 1)
 script = ExtResource("1_johqr")
 metadata/_edit_group_ = true
@@ -70,7 +136,12 @@ wait_time = 0.1
 one_shot = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-31.8035, 16.75)
+scale = Vector2(4.18985, 2.34)
 sprite_frames = SubResource("SpriteFrames_gmlin")
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(-36, -36)
 
 [connection signal="timeout" from="CoyoteTimer" to="." method="_on_coyote_timer_timeout"]
 [connection signal="timeout" from="JumpBufferTimer" to="." method="_on_jump_buffer_timer_timeout"]
