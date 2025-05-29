@@ -3,10 +3,10 @@ extends CharacterBody2D
 
 
 @export_group("Movement")
-@export_range(0, 500) var max_speed := 160.0
-@export_range(0, 500) var acceleration := 40.0
-@export_range(0, 50) var deceleration := 50.0
-@export_range(0, 50) var turn_speed := 500.0
+@export_range(0, 500) var max_speed := 280.0
+@export_range(0, 500) var acceleration := 140.0
+@export_range(0, 50) var deceleration := 150.0
+@export_range(0, 50) var turn_speed := 90.0
 
 @export_group("jump")
 @onready var jump_height_timer = $JumpHeightTimer
@@ -15,7 +15,7 @@ extends CharacterBody2D
 var buffered_jump = false
 var coyote_jump = false
 var was_on_floor = true
-@export_range(0, 5000) var max_jump_height := 100.0
+@export_range(0, 5000) var max_jump_height := 160.0
 @export_range(0, 5000) var min_jump_height := 40.0
 @export_range(0, 500) var jump_duration := 2.5
 @onready var jump_speed = -sqrt(2*gravity*max_jump_height)
@@ -88,7 +88,7 @@ func _physics_process(delta):
 	if is_on_floor():
 		_get_movement(deceleration, acceleration, turn_speed, delta) # ground movement speed
 	else:
-		_get_movement(deceleration*8, acceleration*.25, turn_speed*.3, delta) # air movement speed
+		_get_movement(deceleration*0.5, acceleration*.5, turn_speed*.01, delta) # air movement speed
 	move_and_slide()
 	# buffered jumps
 	if !was_on_floor and is_on_floor():

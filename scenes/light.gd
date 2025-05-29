@@ -1,6 +1,6 @@
 extends RigidBody2D
 
-
+#var position = get_node()
 var picked = true
 
 var player_node  # A reference to the player instance
