@@ -17,6 +17,9 @@ func _process(delta: float) -> void:
 	pass
 "
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_ky1i4"]
+radius = 13.0
+
 [sub_resource type="Gradient" id="Gradient_cur4t"]
 offsets = PackedFloat32Array(0, 0.92)
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
@@ -29,32 +32,30 @@ fill_to = Vector2(0.926829, 0.908537)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2e2gu"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_ky1i4"]
-radius = 13.0
-
 [node name="light" type="Node2D"]
 script = SubResource("GDScript_24oxn")
-
-[node name="PointLight2D" type="PointLight2D" parent="."]
-energy = 3.66
-texture = SubResource("GradientTexture2D_24oxn")
-offset = Vector2(0.5, 0.5)
-texture_scale = 6.65
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, -1)
-scale = Vector2(0.01, 0.01)
-texture = ExtResource("1_24oxn")
 
 [node name="RigidBody2D" type="RigidBody2D" parent="."]
 mass = 0.008
 script = ExtResource("1_2e2gu")
 
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="RigidBody2D"]
+shape = SubResource("CircleShape2D_ky1i4")
+
+[node name="Area2D" type="Area2D" parent="RigidBody2D/CollisionShape2D2"]
+
+[node name="PointLight2D" type="PointLight2D" parent="RigidBody2D"]
+energy = 3.0
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_24oxn")
+offset = Vector2(0.5, 0.5)
+texture_scale = 6.65
+
+[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D"]
+position = Vector2(0, -1)
+scale = Vector2(0.01, 0.01)
+texture = ExtResource("1_24oxn")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
 position = Vector2(-1, 0)
 shape = SubResource("CircleShape2D_2e2gu")
-
-[node name="Area2D" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource("CircleShape2D_ky1i4")
