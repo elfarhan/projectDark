@@ -141,7 +141,7 @@ scale = Vector2(4.18985, 2.34)
 sprite_frames = SubResource("SpriteFrames_gmlin")
 
 [node name="LightMarker" type="Marker2D" parent="."]
-position = Vector2(-36, -36)
+position = Vector2(38, 12)
 
 [connection signal="timeout" from="CoyoteTimer" to="." method="_on_coyote_timer_timeout"]
 [connection signal="timeout" from="JumpBufferTimer" to="." method="_on_jump_buffer_timer_timeout"]

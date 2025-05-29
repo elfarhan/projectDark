@@ -1,21 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://cl04pk3b1if4y"]
+[gd_scene load_steps=7 format=3 uid="uid://cl04pk3b1if4y"]
 
 [ext_resource type="Script" uid="uid://dsgikvevaji0j" path="res://scenes/light.gd" id="1_2e2gu"]
 [ext_resource type="Texture2D" uid="uid://fdytjq3132ee" path="res://photo-1616435577207-ca90abc6b732.png" id="1_24oxn"]
-
-[sub_resource type="GDScript" id="GDScript_24oxn"]
-script/source = "extends Node2D
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ky1i4"]
 radius = 21.0238
@@ -33,20 +19,24 @@ fill_to = Vector2(0.926829, 0.908537)
 [sub_resource type="CircleShape2D" id="CircleShape2D_2e2gu"]
 
 [node name="light" type="Node2D"]
-script = SubResource("GDScript_24oxn")
+script = ExtResource("1_2e2gu")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_ky1i4")
 
 [node name="RigidBody2D" type="RigidBody2D" parent="."]
 input_pickable = true
 mass = 0.001
-script = ExtResource("1_2e2gu")
-
-[node name="Area2D" type="Area2D" parent="RigidBody2D"]
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="RigidBody2D/Area2D"]
-shape = SubResource("CircleShape2D_ky1i4")
 
 [node name="PointLight2D" type="PointLight2D" parent="RigidBody2D"]
-energy = 1.87
+enabled = false
+energy = 2.8
 shadow_enabled = true
 texture = SubResource("GradientTexture2D_24oxn")
 offset = Vector2(0.5, 0.5)
@@ -59,3 +49,5 @@ texture = ExtResource("1_24oxn")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
 shape = SubResource("CircleShape2D_2e2gu")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
