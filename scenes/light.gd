@@ -68,5 +68,5 @@ func drop_light():
 	#light_body.sleeping = false
 	light_body.collision_layer = 1
 	light_body.collision_mask = 1
-	light_body.linear_velocity = player.velocity*0.05#Vector2.ZERO
+	light_body.linear_velocity = player.velocity*.2#Vector2.ZERO
 	light_body.angular_velocity = 0

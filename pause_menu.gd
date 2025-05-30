@@ -1,29 +1,53 @@
 extends Control
 
 @onready var pause_menu = $"."
+@onready var options_menu = $OptionsMenu
+@onready var vbox = $VBox
+var options_toggled = false
 
 func _ready():
-	# Hide pause menu initially when game starts
+	# Hide both menus initially
 	pause_menu.visible = false
-	
+	options_menu.visible = false
+
 func pause():
 	get_tree().paused = true
 	pause_menu.visible = true
-	
+	vbox.visible = true  # Ensure main menu is visible
+	options_menu.visible = false  # Hide options when pausing
+	options_toggled = false
+
 func resume():
 	get_tree().paused = false
 	pause_menu.visible = false
-	
-	
+	options_menu.visible = false
+	options_toggled = false
+
+func show_options():
+	vbox.visible = false
+	options_menu.visible = true
+	options_toggled = true
+
+func hide_options():
+	vbox.visible = true
+	options_menu.visible = false
+	options_toggled = false
+
 func testesc():
-	if Input.is_action_just_pressed("Esc") and get_tree().paused == false:
-		pause()
-	elif Input.is_action_just_pressed("Esc") and get_tree().paused == true:
-		resume()
-		
+	if Input.is_action_just_pressed("Esc"):
+		if get_tree().paused:
+			if options_toggled:
+				# If in options menu, go back to pause menu
+				hide_options()
+			else:
+				# If in main pause menu, resume game
+				resume()
+		else:
+			# If game is running, pause it
+			pause()
+
 func _process(delta):
 	testesc()
-
 
 func _on_resume_pressed() -> void:
 	resume()
@@ -31,13 +55,13 @@ func _on_resume_pressed() -> void:
 func _on_restart_pressed() -> void:
 	get_tree().paused = false
 	get_tree().reload_current_scene()
-	#resume()
-
 
 func _on_options_pressed() -> void:
-	pass # Replace with function body.
+	show_options()
 
+# Add this function for the options back button
+func _on_options_back_pressed() -> void:
+	hide_options()
 
 func _on_save_exit_pressed() -> void:
-	# add save before exit bro
 	get_tree().quit()
