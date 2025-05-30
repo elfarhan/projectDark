@@ -1,5 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://dugs0loarftr"]
+[gd_scene load_steps=10 format=3 uid="uid://dugs0loarftr"]
 
+[ext_resource type="Script" uid="uid://ceekaaqvlk5qa" path="res://scenes/main/title_screen.gd" id="1_c2ksh"]
 [ext_resource type="Texture2D" uid="uid://b4ydhiemaff0i" path="res://Background/background1.png" id="1_h1nep"]
 [ext_resource type="Texture2D" uid="uid://cfbk2h5hgk6vn" path="res://Background/background4.png" id="2_c2ksh"]
 
@@ -9,6 +10,26 @@ modulate_color = Color(0.758192, 0.758192, 0.758192, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kkwvi"]
 texture = ExtResource("2_c2ksh")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_h1nep"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h1nep"]
+bg_color = Color(0.899258, 0.899258, 0.899258, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+shadow_color = Color(0, 0, 0, 0.337255)
+shadow_size = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c2ksh"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+shadow_color = Color(0, 0, 0, 0.337255)
+shadow_size = 10
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ibkxm"]
 bg_color = Color(1, 1, 1, 1)
@@ -26,8 +47,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_c2ksh")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="BackgroundImage1" type="Panel" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -40,7 +62,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_l4ihj")
 
-[node name="Panel2" type="Panel" parent="."]
+[node name="BackgroundImage2" type="Panel" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -66,16 +88,26 @@ theme_override_constants/separation = 15
 
 [node name="StartGame" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 30
+theme_override_styles/focus = SubResource("StyleBoxEmpty_h1nep")
+theme_override_styles/hover = SubResource("StyleBoxFlat_h1nep")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_c2ksh")
 theme_override_styles/normal = SubResource("StyleBoxFlat_ibkxm")
 text = "Start Game"
 metadata/_edit_group_ = true
 
 [node name="Options" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 30
+theme_override_styles/focus = SubResource("StyleBoxEmpty_h1nep")
+theme_override_styles/hover = SubResource("StyleBoxFlat_h1nep")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_c2ksh")
 theme_override_styles/normal = SubResource("StyleBoxFlat_ibkxm")
 text = "Options
 "
@@ -83,13 +115,18 @@ metadata/_edit_group_ = true
 
 [node name="Exit" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 30
+theme_override_styles/focus = SubResource("StyleBoxEmpty_h1nep")
+theme_override_styles/hover = SubResource("StyleBoxFlat_h1nep")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_c2ksh")
 theme_override_styles/normal = SubResource("StyleBoxFlat_ibkxm")
 text = "Exit"
 metadata/_edit_group_ = true
 
-[node name="Label" type="Label" parent="."]
+[node name="GameTitle" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -101,3 +138,37 @@ offset_bottom = 258.0
 grow_horizontal = 2
 theme_override_font_sizes/font_size = 100
 text = "Project Dark"
+
+[node name="TeamName" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 14.0
+offset_top = -34.0
+offset_right = 87.0
+offset_bottom = -15.0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 13
+text = "Team Berry"
+
+[node name="TeamName2" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -55.0
+offset_top = -28.0
+offset_right = 18.0
+offset_bottom = 11.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 13
+text = "V0.01
+"
+
+[connection signal="pressed" from="VBoxContainer/StartGame" to="." method="_on_start_game_pressed"]
+[connection signal="pressed" from="VBoxContainer/Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="VBoxContainer/Exit" to="." method="_on_exit_pressed"]
