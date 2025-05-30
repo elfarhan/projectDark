@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bxhpae2udrhjy"]
+[gd_scene load_steps=8 format=3 uid="uid://bxhpae2udrhjy"]
 
 [ext_resource type="Texture2D" uid="uid://b4ydhiemaff0i" path="res://Background/background1.png" id="1_dc040"]
 [ext_resource type="PackedScene" uid="uid://cl04pk3b1if4y" path="res://scenes/light.tscn" id="1_gyg6b"]
@@ -7,7 +7,16 @@
 [ext_resource type="Texture2D" uid="uid://cfbk2h5hgk6vn" path="res://Background/background4.png" id="3_1rhdn"]
 [ext_resource type="PackedScene" uid="uid://dnt5y4lr8sd7v" path="res://scenes/tile_map.tscn" id="4_gyg6b"]
 
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_1rhdn"]
+polygon = PackedVector2Array(768, 408, 769, 442, 946, 436, 946, 412)
+
 [node name="Main" type="Node2D"]
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+position = Vector2(-63, 0)
+occluder = SubResource("OccluderPolygon2D_1rhdn")
+
+[node name="RigidBody2D" type="RigidBody2D" parent="LightOccluder2D"]
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
@@ -40,8 +49,6 @@ motion_mirroring = Vector2(1330.82, 0)
 position = Vector2(742, 350)
 scale = Vector2(3.12441, 2.07812)
 texture = ExtResource("3_1rhdn")
-
-[node name="LightOccluder2D" type="LightOccluder2D" parent="ParallaxBackground/ParallaxLayer3"]
 
 [node name="light" parent="." instance=ExtResource("1_gyg6b")]
 position = Vector2(624, 450)

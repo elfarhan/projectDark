@@ -3,6 +3,7 @@ extends Node2D
 @onready var timer = $Timer
 @onready var light = $RigidBody2D/PointLight2D
 @onready var player_marker = get_node("../Player/LightMarker")
+@onready var player = get_node("../Player")
 @onready var light_body = $RigidBody2D
 
 var is_carried = false
@@ -12,7 +13,6 @@ func _ready():
 	# Start the timer when scene loads
 	timer.start()
 	light.enabled = true 
-	#light_body.global_position = player_marker.global_position
 	print(player_marker.position)
 	
 	# Connect timeout signal
@@ -23,6 +23,8 @@ func _on_timer_timeout():
 
 func _physics_process(delta):
 	light.energy = max(light.energy-delta*0.001,0)
+	#print(light_body.global_position.distance_to(player.global_position))
+	
 	if is_carried:
 		# Keep the light positioned at the marker while carried
 		light_body.global_position = player_marker.global_position
@@ -33,7 +35,7 @@ func _input(event):
 	if event.is_action_pressed("Carry_Drop"):
 		if is_carried:
 			drop_light()
-		elif abs(light_body.global_position.distance_to(player_marker.global_position)) < 50:
+		elif light_body.global_position.distance_to(player.global_position) < 57:
 			carry_light()
 
 func carry_light():
@@ -59,20 +61,12 @@ func carry_light():
 func drop_light():
 	if !is_carried: 
 		return
-	
 	is_carried = false
-	
-	# Remove from player marker
-	#player_marker.remove_child(light_body)
-	
-	# Add back to original parent
-	#original_parent.add_child(light_body)
-	
 	# Restore physics properties
 	light_body.global_position = player_marker.global_position
 	#light_body.freeze = false
 	#light_body.sleeping = false
 	light_body.collision_layer = 1
 	light_body.collision_mask = 1
-	light_body.linear_velocity = Vector2.ZERO
+	light_body.linear_velocity = player.velocity*0.05#Vector2.ZERO
 	light_body.angular_velocity = 0
