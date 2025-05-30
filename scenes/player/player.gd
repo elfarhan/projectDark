@@ -22,8 +22,14 @@ var was_on_floor = true
 @onready var jump_speed_cutoff = -sqrt(2*gravity*min_jump_height)
 @onready var jump_acceleration = gravity*(1-min_jump_height/max_jump_height)
 @export_range(0, 1000) var gravity := 900.0
+@onready var fall_gravity = gravity * 1.5
 
 
+func _get_gravity(velocity: Vector2):
+	if velocity.y <0:
+		return gravity
+	else:
+		return fall_gravity
 # Calculates the players movement depending on the context
 func _get_movement(decel: float, accel: float, turn: float, delta: float):
 	
@@ -81,7 +87,7 @@ func _physics_process(delta):
 				coyote_jump = false
 	# fall with gravity
 	if !is_on_floor():
-		velocity.y += gravity * delta
+		velocity.y += _get_gravity(velocity) * delta
 		
 	was_on_floor = is_on_floor()
 	# handle horizontal movement

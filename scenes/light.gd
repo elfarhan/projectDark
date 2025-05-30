@@ -33,7 +33,7 @@ func _input(event):
 	if event.is_action_pressed("Carry_Drop"):
 		if is_carried:
 			drop_light()
-		elif light_body.global_position.distance_to(player_marker.global_position) < 50:
+		elif abs(light_body.global_position.distance_to(player_marker.global_position)) < 50:
 			carry_light()
 
 func carry_light():

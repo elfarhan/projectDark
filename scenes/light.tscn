@@ -36,6 +36,7 @@ mass = 0.001
 
 [node name="PointLight2D" type="PointLight2D" parent="RigidBody2D"]
 enabled = false
+color = Color(1, 0.13, 0.13, 1)
 energy = 2.8
 shadow_enabled = true
 texture = SubResource("GradientTexture2D_24oxn")
