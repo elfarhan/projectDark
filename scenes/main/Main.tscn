@@ -13,13 +13,14 @@
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_1rhdn"]
 polygon = PackedVector2Array(768, 408, 769, 442, 946, 436, 793, 410)
 
-[sub_resource type="Environment" id="Environment_sjxhf"]
+[sub_resource type="Environment" id="Environment_ostsq"]
 background_mode = 3
+tonemap_mode = 3
 glow_enabled = true
-glow_levels/1 = 0.6
-glow_levels/2 = 0.4
-glow_levels/7 = 1.5
 glow_normalized = true
+glow_intensity = 1.12
+glow_bloom = 0.12
+glow_blend_mode = 0
 
 [node name="Main" type="Node2D"]
 
@@ -62,14 +63,13 @@ scale = Vector2(3.12441, 2.07812)
 texture = ExtResource("3_1rhdn")
 
 [node name="light" parent="." instance=ExtResource("1_gyg6b")]
-position = Vector2(624, 450)
+position = Vector2(160, 713)
 
 [node name="Player" parent="." instance=ExtResource("2_gya0h")]
-position = Vector2(259, 505)
+position = Vector2(97, 698)
 platform_wall_layers = 1
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
-zoom = Vector2(1.5, 1.5)
 limit_left = 0
 limit_bottom = 775
 position_smoothing_enabled = true
@@ -101,5 +101,10 @@ theme_override_font_sizes/font_size = 23
 text = "0:00"
 script = ExtResource("9_ostsq")
 
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+color = Color(0, 0, 0, 1)
+energy = 0.36
+blend_mode = 2
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_sjxhf")
+environment = SubResource("Environment_ostsq")
