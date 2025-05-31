@@ -12,7 +12,7 @@ var cursor_index: int = 0
 func _ready():
 	set_cursor_from_index(0,0)
 
-func _process(_delta):
+func _process(delta):
 	var input := 0
 	
 	if Input.is_action_just_pressed("ui_up"):
@@ -21,22 +21,38 @@ func _process(_delta):
 		input = 1
 
 	if input != 0:
-		var new_index = cursor_index
-		new_index += input
-
+		var new_index = cursor_index + input
 		
-		# Clamp index to valid range
-		#new_index = clampi(new_index, 0, menu_parent.get_child_count() - 1)
-		if new_index >= current_submenu.get_child_count() :
-			new_index = 0
-			submenu_index += 1
-			#submenu_index =  clampi(submenu_index, 0, menu_parent.get_child_count() - 1)
-		elif new_index < 0:
-			submenu_index += -1
-			submenu_index =  clampi(submenu_index, 0, menu_parent.get_child_count() - 1)
-			new_index = current_submenu.get_child_count() -1
+		# Handle movement within current submenu
+		if new_index >= 0 and new_index < current_submenu.get_child_count():
+			cursor_index = new_index
+			set_cursor_from_index(cursor_index, submenu_index)
+		else:
+			# Handle vertical wrapping between submenus
+			if input > 0:  # Moving down from last item
+				submenu_index += 1
+				new_index = 0
+			else:  # Moving up from first item
+				submenu_index -= 1
+				new_index = -1  # Temporary placeholder
 			
-		set_cursor_from_index(new_index, submenu_index)
+			# Clamp submenu index to valid range
+			submenu_index = clampi(submenu_index, 0, menu_parent.get_child_count() - 1)
+			current_submenu = menu_parent.get_child(submenu_index)
+			
+			# Handle empty submenu case
+			if current_submenu.get_child_count() == 0:
+				cursor_index = 0
+			else:
+				# Adjust index for new submenu
+				if new_index == -1:  # Coming from up movement
+					cursor_index = current_submenu.get_child_count() - 1
+				else:  # Coming from down movement
+					cursor_index = new_index
+			
+			# Ensure cursor index is valid
+			cursor_index = clampi(cursor_index, 0, current_submenu.get_child_count() - 1)
+			set_cursor_from_index(cursor_index, submenu_index)
 	
 	if Input.is_action_just_pressed("ui_select"):
 		var current_item = get_menu_item_at_index(cursor_index, submenu_index)
