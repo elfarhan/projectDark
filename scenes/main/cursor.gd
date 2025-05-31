@@ -7,7 +7,7 @@ extends TextureRect
 @onready var menu_parent: Node = get_node(menu_parent_path)
 @onready var submenu_index = 0
 @onready var current_submenu = menu_parent.get_child(submenu_index)
-
+#@onready var current_item : HSlider
 var cursor_index: int = 0
 
 func _ready():
@@ -22,13 +22,19 @@ func _process(delta):
 	
 	if Input.is_action_just_pressed("ui_up")  and visible:
 		input = -1
-	elif Input.is_action_just_pressed("ui_down"):
+	elif Input.is_action_just_pressed("ui_down") and visible:
 		input = 1
 
 	if input != 0:
 		var new_index = cursor_index + input
-		
-		# Handle movement within current submenu
+		if new_index < 0 and submenu_index == 0:
+			current_submenu = menu_parent.get_child(-1)
+			new_index = current_submenu.get_child_count() - 1
+			submenu_index = menu_parent.get_child_count() -1
+		elif new_index > 0 and submenu_index == menu_parent.get_child_count() -1:
+			submenu_index = 0
+			new_index = 0
+			current_submenu = menu_parent.get_child(0)
 		if new_index >= 0 and new_index < current_submenu.get_child_count():
 			cursor_index = new_index
 			set_cursor_from_index(cursor_index, submenu_index)
@@ -59,11 +65,12 @@ func _process(delta):
 			# Ensure cursor index is valid
 			cursor_index = clampi(cursor_index, 0, current_submenu.get_child_count() - 1)
 			set_cursor_from_index(cursor_index, submenu_index)
+	var current_item = get_menu_item_at_index(cursor_index, submenu_index).get_child(1)
+	current_item.grab_focus()
 	
-	if Input.is_action_just_pressed("ui_select"):
-		var current_item = get_menu_item_at_index(cursor_index, submenu_index)
-		if current_item and current_item.has_method("cursor_select"):
-			current_item.cursor_select()
+	
+			
+
 
 func get_menu_item_at_index(index: int, submenu_index: int) -> Control:
 	if not menu_parent or index < 0 or index >= menu_parent.get_child_count():
@@ -72,7 +79,7 @@ func get_menu_item_at_index(index: int, submenu_index: int) -> Control:
 	return current_submenu.get_child(index) as Control
 
 func set_cursor_from_index(index: int, submenu_index: int) -> void:
-	print(index, submenu_index)
+	#print(index, submenu_index)
 	var menu_item = get_menu_item_at_index(index, submenu_index)
 	if not menu_item:
 		return
@@ -87,3 +94,4 @@ func set_cursor_from_index(index: int, submenu_index: int) -> void:
 	)
 	
 	cursor_index = index
+	

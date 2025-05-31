@@ -96,6 +96,7 @@ text = "Music"
 [node name="HSlider" type="HSlider" parent="Panel/Container/auditory/music"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
+step = 15.0
 
 [node name="sounds" type="HBoxContainer" parent="Panel/Container/auditory"]
 layout_mode = 2
@@ -110,6 +111,7 @@ text = "Sounds"
 [node name="HSlider" type="HSlider" parent="Panel/Container/auditory/sounds"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
+step = 15.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel/Container"]
 layout_mode = 2
@@ -136,3 +138,10 @@ offset_bottom = 77.0
 texture = ExtResource("2_uposi")
 script = ExtResource("3_i4ruh")
 menu_parent_path = NodePath("../Container")
+
+[connection signal="pressed" from="Panel/Container/visual/fullscreen/CheckButton" to="." method="_on_fullscreen_button_pressed"]
+[connection signal="toggled" from="Panel/Container/visual/fullscreen/CheckButton" to="." method="_on_fullscreen_button_toggled"]
+[connection signal="toggled" from="Panel/Container/visual/vsync/CheckButton" to="." method="_on_vsync_button_toggled"]
+[connection signal="value_changed" from="Panel/Container/auditory/music/HSlider" to="." method="_on_music_slider_value_changed"]
+[connection signal="value_changed" from="Panel/Container/auditory/sounds/HSlider" to="." method="_on_sounds_slider_value_changed"]
+[connection signal="pressed" from="Panel/Container/VBoxContainer/speedruntimer/CheckButton" to="." method="_on_speedrun_timer_button_pressed"]
