@@ -1,14 +1,30 @@
 extends Control
 
+@onready var options_menu = $Options
+var options_toggled = false
+@onready var vbox = $VBoxContainer
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	$VBoxContainer/StartGame.grab_focus()
+	
+
+func show_options():
+	vbox.visible = false
+	options_menu.visible = true
+	options_toggled = true
+
+func hide_options():
+	vbox.visible = true
+	options_menu.visible = false
+	options_toggled = false
+	$VBoxContainer/StartGame.grab_focus()
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	if Input.is_action_just_pressed("Esc"):
+		if options_toggled:
+			# If in options menu, go back to pause menu
+			hide_options()
 
 
 func _on_start_game_pressed() -> void:
@@ -16,7 +32,9 @@ func _on_start_game_pressed() -> void:
 
 
 func _on_options_pressed() -> void:
-	get_tree().change_scene_to_file("res://scenes/main/options.tscn")
+	#get_tree().change_scene_to_file("res://scenes/main/options.tscn")
+	show_options()
+	pass
 
 
 func _on_exit_pressed() -> void:

@@ -13,7 +13,6 @@ func _ready():
 	# Start the timer when scene loads
 	timer.start()
 	light.enabled = true 
-	print(player_marker.position)
 	
 	# Connect timeout signal
 	timer.timeout.connect(_on_timer_timeout)

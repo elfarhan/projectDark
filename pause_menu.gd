@@ -9,13 +9,15 @@ func _ready():
 	# Hide both menus initially
 	pause_menu.visible = false
 	options_menu.visible = false
+	
 
 func pause():
 	get_tree().paused = true
 	pause_menu.visible = true
-	vbox.visible = true  # Ensure main menu is visible
-	options_menu.visible = false  # Hide options when pausing
+	vbox.visible = true 
+	options_menu.visible = false  
 	options_toggled = false
+	$VBox/Resume.grab_focus()
 
 func resume():
 	get_tree().paused = false

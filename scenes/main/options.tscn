@@ -1,4 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://d2wjbrlbivhcg"]
+[gd_scene load_steps=5 format=3 uid="uid://d2wjbrlbivhcg"]
+
+[ext_resource type="Script" uid="uid://mhbc841ppqdu" path="res://scenes/main/options_menu.gd" id="1_4r7lc"]
+[ext_resource type="Texture2D" uid="uid://eheys0tfd56q" path="res://cursor.png" id="2_uposi"]
+[ext_resource type="Script" uid="uid://nvietkhx2jgf" path="res://scenes/main/cursor.gd" id="3_i4ruh"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ej8lk"]
 bg_color = Color(1, 1, 1, 0.67451)
@@ -15,15 +19,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="DimBackground" type="ColorRect" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.25098)
+script = ExtResource("1_4r7lc")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
@@ -40,7 +36,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ej8lk")
 
-[node name="VBoxContainer3" type="VBoxContainer" parent="Panel"]
+[node name="Container" type="VBoxContainer" parent="Panel"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -55,75 +51,88 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 30
 
-[node name="visual" type="VBoxContainer" parent="Panel/VBoxContainer3"]
+[node name="visual" type="VBoxContainer" parent="Panel/Container"]
 layout_mode = 2
 
-[node name="fullscreen" type="HBoxContainer" parent="Panel/VBoxContainer3/visual"]
+[node name="fullscreen" type="HBoxContainer" parent="Panel/Container/visual"]
 layout_mode = 2
 theme_override_constants/separation = 100
 
-[node name="Fullscreen" type="Label" parent="Panel/VBoxContainer3/visual/fullscreen"]
+[node name="Fullscreen" type="Label" parent="Panel/Container/visual/fullscreen"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 20
 text = "Fullscreen"
 
-[node name="CheckButton" type="CheckButton" parent="Panel/VBoxContainer3/visual/fullscreen"]
+[node name="CheckButton" type="CheckButton" parent="Panel/Container/visual/fullscreen"]
 layout_mode = 2
 
-[node name="vsync" type="HBoxContainer" parent="Panel/VBoxContainer3/visual"]
+[node name="vsync" type="HBoxContainer" parent="Panel/Container/visual"]
 layout_mode = 2
 theme_override_constants/separation = 135
 
-[node name="V-Sync" type="Label" parent="Panel/VBoxContainer3/visual/vsync"]
+[node name="V-Sync" type="Label" parent="Panel/Container/visual/vsync"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 20
 text = "V-Sync"
 
-[node name="CheckButton" type="CheckButton" parent="Panel/VBoxContainer3/visual/vsync"]
+[node name="CheckButton" type="CheckButton" parent="Panel/Container/visual/vsync"]
 layout_mode = 2
 
-[node name="auditory" type="VBoxContainer" parent="Panel/VBoxContainer3"]
+[node name="auditory" type="VBoxContainer" parent="Panel/Container"]
 layout_mode = 2
 
-[node name="music" type="HBoxContainer" parent="Panel/VBoxContainer3/auditory"]
+[node name="music" type="HBoxContainer" parent="Panel/Container/auditory"]
 layout_mode = 2
 theme_override_constants/separation = 99
 
-[node name="Music" type="Label" parent="Panel/VBoxContainer3/auditory/music"]
+[node name="Music" type="Label" parent="Panel/Container/auditory/music"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 20
 text = "Music"
 
-[node name="HSlider" type="HSlider" parent="Panel/VBoxContainer3/auditory/music"]
+[node name="HSlider" type="HSlider" parent="Panel/Container/auditory/music"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 
-[node name="sounds" type="HBoxContainer" parent="Panel/VBoxContainer3/auditory"]
+[node name="sounds" type="HBoxContainer" parent="Panel/Container/auditory"]
 layout_mode = 2
 theme_override_constants/separation = 85
 
-[node name="Sounds" type="Label" parent="Panel/VBoxContainer3/auditory/sounds"]
+[node name="Sounds" type="Label" parent="Panel/Container/auditory/sounds"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 20
 text = "Sounds"
 
-[node name="HSlider" type="HSlider" parent="Panel/VBoxContainer3/auditory/sounds"]
+[node name="HSlider" type="HSlider" parent="Panel/Container/auditory/sounds"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 
-[node name="speedruntimer" type="HBoxContainer" parent="Panel/VBoxContainer3"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/Container"]
+layout_mode = 2
+
+[node name="speedruntimer" type="HBoxContainer" parent="Panel/Container/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 43
 
-[node name="Speedrun Timer" type="Label" parent="Panel/VBoxContainer3/speedruntimer"]
+[node name="Speedrun Timer" type="Label" parent="Panel/Container/VBoxContainer/speedruntimer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 20
 text = "Speedrun Timer"
 
-[node name="CheckButton" type="CheckButton" parent="Panel/VBoxContainer3/speedruntimer"]
+[node name="CheckButton" type="CheckButton" parent="Panel/Container/VBoxContainer/speedruntimer"]
 layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Panel"]
+layout_mode = 0
+offset_left = 85.0
+offset_top = 55.0
+offset_right = 107.0
+offset_bottom = 77.0
+texture = ExtResource("2_uposi")
+script = ExtResource("3_i4ruh")
+menu_parent_path = NodePath("../Container")
