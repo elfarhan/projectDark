@@ -1,5 +1,6 @@
 extends Control
 
+@onready var speedrun_timer = get_node_or_null("../../Speedrun_timer")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -10,10 +11,6 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
-
-
-func _on_speedrun_timer_button_pressed() -> void:
-	print("speedrun") # Replace with function body.
 
 
 func _on_sounds_slider_value_changed(value: float) -> void:
@@ -39,3 +36,8 @@ func _on_fullscreen_button_toggled(toggled: bool) -> void:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 	else:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+
+
+func _on_speedrum_timer_button_toggled(toggled: bool) -> void:
+	if speedrun_timer:
+		speedrun_timer.visible = toggled

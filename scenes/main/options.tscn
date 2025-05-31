@@ -144,4 +144,4 @@ menu_parent_path = NodePath("../Container")
 [connection signal="toggled" from="Panel/Container/visual/vsync/CheckButton" to="." method="_on_vsync_button_toggled"]
 [connection signal="value_changed" from="Panel/Container/auditory/music/HSlider" to="." method="_on_music_slider_value_changed"]
 [connection signal="value_changed" from="Panel/Container/auditory/sounds/HSlider" to="." method="_on_sounds_slider_value_changed"]
-[connection signal="pressed" from="Panel/Container/VBoxContainer/speedruntimer/CheckButton" to="." method="_on_speedrun_timer_button_pressed"]
+[connection signal="toggled" from="Panel/Container/VBoxContainer/speedruntimer/CheckButton" to="." method="_on_speedrum_timer_button_toggled"]

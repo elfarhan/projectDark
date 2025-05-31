@@ -87,6 +87,7 @@ layer_0/tile_data = PackedInt32Array(917502, 1638400, 6, 851966, 917504, 6, 8519
 visible = false
 
 [node name="Speedrun_timer" type="Label" parent="CanvasLayer"]
+visible = false
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
