@@ -34,6 +34,7 @@ func hide_options():
 	vbox.visible = true
 	options_menu.visible = false
 	options_toggled = false
+	$VBox/Resume.grab_focus()
 
 func testesc():
 	if Input.is_action_just_pressed("Esc"):
