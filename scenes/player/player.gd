@@ -21,8 +21,8 @@ var was_on_floor = true
 @onready var jump_speed = -sqrt(2*gravity*max_jump_height)
 @onready var jump_speed_cutoff = -sqrt(2*gravity*min_jump_height)
 @onready var jump_acceleration = gravity*(1-min_jump_height/max_jump_height)
-@export_range(0, 1000) var gravity := 900.0
-@onready var fall_gravity = gravity * 1.5
+@export_range(0, 1000) var gravity := 1000.0
+@onready var fall_gravity = gravity * 2.0
 
 
 func _get_gravity(velocity: Vector2):
@@ -98,6 +98,7 @@ func _physics_process(delta):
 	move_and_slide()
 	# buffered jumps
 	if !was_on_floor and is_on_floor():
+		emit_signal("landed")
 		if buffered_jump:
 			jump()
 	# coyote jumps
