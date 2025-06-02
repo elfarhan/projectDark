@@ -66,4 +66,4 @@ Esc={
 
 [rendering]
 
-viewport/hdr_2d=true
+viewport/stretch/aspect="expand"
