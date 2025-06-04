@@ -1,7 +1,6 @@
-[gd_scene load_steps=13 format=3 uid="uid://bxhpae2udrhjy"]
+[gd_scene load_steps=11 format=3 uid="uid://bxhpae2udrhjy"]
 
 [ext_resource type="Texture2D" uid="uid://b4ydhiemaff0i" path="res://Background/background1.png" id="1_dc040"]
-[ext_resource type="PackedScene" uid="uid://cl04pk3b1if4y" path="res://scenes/light.tscn" id="1_gyg6b"]
 [ext_resource type="Texture2D" uid="uid://b64ke51duptuj" path="res://Background/background2.png" id="2_1rhdn"]
 [ext_resource type="PackedScene" uid="uid://dxcvxert3buob" path="res://scenes/player/player.tscn" id="2_gya0h"]
 [ext_resource type="Texture2D" uid="uid://cfbk2h5hgk6vn" path="res://Background/background4.png" id="3_1rhdn"]
@@ -10,26 +9,9 @@
 [ext_resource type="Script" uid="uid://tbsmvhpapk2y" path="res://scenes/main/camera_2d.gd" id="6_ko0rf"]
 [ext_resource type="PackedScene" uid="uid://be26eggrnftw" path="res://scenes/main/pause_menu.tscn" id="7_sjxhf"]
 [ext_resource type="Script" uid="uid://b8entpw3nvcxt" path="res://scenes/main/speedrun_timer.gd" id="9_ostsq"]
-
-[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_1rhdn"]
-polygon = PackedVector2Array(768, 408, 769, 442, 946, 436, 793, 410)
-
-[sub_resource type="Environment" id="Environment_ostsq"]
-background_mode = 3
-tonemap_mode = 3
-glow_enabled = true
-glow_normalized = true
-glow_intensity = 1.12
-glow_bloom = 0.12
-glow_blend_mode = 0
+[ext_resource type="PackedScene" uid="uid://bqrvec1lu3xkv" path="res://scenes/lights/Light.tscn" id="10_3km4f"]
 
 [node name="Main" type="Node2D"]
-
-[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
-position = Vector2(-156, -64)
-occluder = SubResource("OccluderPolygon2D_1rhdn")
-
-[node name="RigidBody2D" type="RigidBody2D" parent="LightOccluder2D"]
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
@@ -70,8 +52,8 @@ position = Vector2(747, 350)
 scale = Vector2(3.12441, 2.07812)
 texture = ExtResource("3_1rhdn")
 
-[node name="light" parent="." instance=ExtResource("1_gyg6b")]
-position = Vector2(528, 440)
+[node name="CanvasModulate" type="CanvasModulate" parent="ParallaxBackground"]
+color = Color(0, 0, 0, 1)
 
 [node name="Player" parent="." instance=ExtResource("2_gya0h")]
 position = Vector2(618, 437)
@@ -110,13 +92,17 @@ theme_override_font_sizes/font_size = 23
 text = "0:00"
 script = ExtResource("9_ostsq")
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_ostsq")
-
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
 visible = false
 color = Color(0, 0, 0, 1)
 energy = 1.5
 blend_mode = 2
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0, 0, 0, 1)
+
+[node name="Light" parent="." instance=ExtResource("10_3km4f")]
+position = Vector2(508, 366)
+radius = 260
 
 [connection signal="landed" from="Player" to="Player/Camera2D" method="_on_player_landed"]

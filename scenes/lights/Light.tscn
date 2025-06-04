@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://bqrvec1lu3xkv"]
+
+[ext_resource type="Texture2D" uid="uid://cuvkwu6igaanx" path="res://assets/light_texture.png" id="1_bthvb"]
+[ext_resource type="Script" uid="uid://bta3vr4b7ppss" path="res://scenes/lights/light.gd" id="1_vxin6"]
+[ext_resource type="Texture2D" uid="uid://fdytjq3132ee" path="res://photo-1616435577207-ca90abc6b732.png" id="3_xsjmc"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xsjmc"]
+radius = 11.0
+
+[node name="ShadowLight" type="RigidBody2D"]
+script = ExtResource("1_vxin6")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -1)
+scale = Vector2(0.01, 0.01)
+texture = ExtResource("3_xsjmc")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 30.0
+one_shot = true
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+texture = ExtResource("1_bthvb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_xsjmc")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
