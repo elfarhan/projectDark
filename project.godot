@@ -74,6 +74,14 @@ Interact={
 ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="Player"
+2d_physics/layer_2="Environment"
+2d_physics/layer_3="Lights"
+2d_physics/layer_4="NPCs"
+
 [rendering]
 
+viewport/hdr_2d=true
 viewport/stretch/aspect="expand"
