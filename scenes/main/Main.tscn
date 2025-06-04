@@ -117,3 +117,5 @@ visible = false
 color = Color(0, 0, 0, 1)
 energy = 1.5
 blend_mode = 2
+
+[connection signal="landed" from="Player" to="Player/Camera2D" method="_on_player_landed"]

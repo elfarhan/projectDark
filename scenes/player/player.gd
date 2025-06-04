@@ -1,7 +1,7 @@
 class_name Player
 extends CharacterBody2D
 
-
+signal landed
 @export_group("Movement")
 @export_range(0, 500) var max_speed := 280.0
 @export_range(0, 500) var acceleration := 140.0
@@ -102,17 +102,20 @@ func _physics_process(delta):
 				global_position.x +=  -900*delta
 				velocity.x += -900
 			
-		
+	
 	was_on_floor = is_on_floor()
 	# handle horizontal movement
 	if is_on_floor():
 		_get_movement(deceleration, acceleration, turn_speed, delta) # ground movement speed
 	else:
 		_get_movement(deceleration*0.5, acceleration*.5, turn_speed*.01, delta) # air movement speed
+	var previous_velocity_y = velocity.y
 	move_and_slide()
 	# buffered jumps
 	if !was_on_floor and is_on_floor():
-		emit_signal("landed")
+		if previous_velocity_y >1200:
+			emit_signal("landed")
+			print("shake!")
 		if buffered_jump:
 			jump()
 	# coyote jumps

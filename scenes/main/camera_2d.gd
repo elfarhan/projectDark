@@ -12,7 +12,18 @@ var is_easing: bool = false          # Whether we're currently easing
 var direction: int = 1               # Current movement direction
 var returning: bool = false 
 @onready var previous_direction = player.horizontal_movement_direction
+@export var max_shake: float = 10.5
+@export var shake_fade: float = 10.0
+var _shake_strength: float = 0.0
 
+func trigger_shake() -> void:
+	_shake_strength = max_shake
+
+func _process(delta: float) -> void:
+	if _shake_strength != 0:
+		_shake_strength = lerp(_shake_strength, 0.0, shake_fade * delta)
+		offset = Vector2(randf_range(-_shake_strength, _shake_strength), randf_range(-_shake_strength, _shake_strength))
+		
 func get_player_direction():
 	if player.horizontal_movement_direction == 0.0 or player.horizontal_movement_direction == 1.0:
 		return 1
@@ -22,6 +33,8 @@ func get_player_direction():
 		print("error")
 		return 0
 	return player.horizontal_movement_direction
+	
+	
 func _physics_process(delta):
 	# Handle look ahead when player starts moving
 	if  is_equal_approx(global_position.x, target_look_ahead.x):
@@ -55,3 +68,7 @@ func ease_in_out_sine(lower_bound:float,  upper_bound: float, x: float) -> float
 		return  (upper_bound-lower_bound)*percentage + lower_bound
 	else:
 		return upper_bound
+
+
+func _on_player_landed() -> void:
+	trigger_shake()
