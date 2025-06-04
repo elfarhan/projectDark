@@ -73,16 +73,16 @@ sprite_frames = SubResource("SpriteFrames_gmlin")
 position = Vector2(38, 12)
 
 [node name="RayCast2D_right" type="RayCast2D" parent="."]
-position = Vector2(-4, 5)
-target_position = Vector2(0, -17)
+position = Vector2(-12, 5)
+target_position = Vector2(0, -15)
 
 [node name="RayCast2D_center" type="RayCast2D" parent="."]
 position = Vector2(-32, 5)
-target_position = Vector2(0, -17)
+target_position = Vector2(0, -15)
 
 [node name="RayCast2D_left" type="RayCast2D" parent="."]
-position = Vector2(-60, 5)
-target_position = Vector2(0, -17)
+position = Vector2(-52, 5)
+target_position = Vector2(0, -15)
 
 [connection signal="timeout" from="CoyoteTimer" to="." method="_on_coyote_timer_timeout"]
 [connection signal="timeout" from="JumpBufferTimer" to="." method="_on_jump_buffer_timer_timeout"]

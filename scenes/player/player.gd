@@ -94,11 +94,12 @@ func _physics_process(delta):
 	# fall with gravity
 	if !is_on_floor():
 		velocity.y += _get_gravity(velocity) * delta
+		# handle quality of life vertical jumps
 		if velocity.y <0:
-			if !ray_cast_center.is_colliding() and ray_cast_left.is_colliding():
+			if !ray_cast_center.is_colliding() and ray_cast_left.is_colliding() and velocity.x>=0:
 				global_position.x += 900*delta
 				velocity.x += 900
-			elif !ray_cast_center.is_colliding() and ray_cast_right.is_colliding():
+			elif !ray_cast_center.is_colliding() and ray_cast_right.is_colliding() and velocity.x<=0:
 				global_position.x +=  -900*delta
 				velocity.x += -900
 			
@@ -113,7 +114,7 @@ func _physics_process(delta):
 	move_and_slide()
 	# buffered jumps
 	if !was_on_floor and is_on_floor():
-		if previous_velocity_y >1200:
+		if previous_velocity_y >1300:
 			emit_signal("landed")
 			print("shake!")
 		if buffered_jump:
