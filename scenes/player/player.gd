@@ -172,7 +172,7 @@ func carry_light(light):
 	
 	# inform spawner
 	if light.get_parent() is LightSpawner:
-		light.get_parent().mark_picked_up()
+		light.get_parent().mark_picked_up(light)
 	
 	# Reparent to player marker
 	light.reparent($LightMarker)
