@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bxhpae2udrhjy"]
+[gd_scene load_steps=18 format=3 uid="uid://bxhpae2udrhjy"]
 
 [ext_resource type="Texture2D" uid="uid://b4ydhiemaff0i" path="res://Background/background1.png" id="1_dc040"]
 [ext_resource type="Texture2D" uid="uid://b64ke51duptuj" path="res://Background/background2.png" id="2_1rhdn"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://d3xw4ay7rsoy7" path="res://main_lev_buildA.png" id="7_qkm1d"]
 [ext_resource type="PackedScene" uid="uid://be26eggrnftw" path="res://scenes/main/pause_menu.tscn" id="7_sjxhf"]
 [ext_resource type="Script" uid="uid://b8entpw3nvcxt" path="res://scenes/main/speedrun_timer.gd" id="9_ostsq"]
+[ext_resource type="Script" uid="uid://km6gh7dpkpxm" path="res://scenes/main/canvas_modulate.gd" id="10_2tpxt"]
 [ext_resource type="PackedScene" uid="uid://dkw7vi40w1gto" path="res://scenes/lights/LightSpawner.tscn" id="10_3km4f"]
 [ext_resource type="PackedScene" uid="uid://bqrvec1lu3xkv" path="res://scenes/lights/Light.tscn" id="11_qkm1d"]
 [ext_resource type="PackedScene" uid="uid://b1cfr4gb1plnd" path="res://scenes/npc/Npc.tscn" id="12_p5fgu"]
@@ -1930,7 +1931,7 @@ scale = Vector2(3.12441, 2.07812)
 texture = ExtResource("3_1rhdn")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="ParallaxBackground"]
-color = Color(0, 0, 0, 1)
+script = ExtResource("10_2tpxt")
 
 [node name="Player" parent="." instance=ExtResource("2_gya0h")]
 position = Vector2(618, 437)
@@ -1984,7 +1985,7 @@ energy = 1.5
 blend_mode = 2
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color(0, 0, 0, 1)
+script = ExtResource("10_2tpxt")
 
 [node name="LightSpawner" parent="." instance=ExtResource("10_3km4f")]
 position = Vector2(542, 350)
