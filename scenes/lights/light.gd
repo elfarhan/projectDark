@@ -2,22 +2,22 @@ class_name Light
 extends RigidBody2D
 
 @export_range(0, 2048, 8) var radius = 256 
-@export var time_limit = 0
+@export var timeout = 0
 @onready var timer = $Timer
 @onready var light = $PointLight2D
 
 func _ready():
 	light.enabled = true
 	# Start the timer when scene loads
-	if self.time_limit > 0:
-		$Timer.start(self.time_limit)
+	if self.timeout > 0:
+		$Timer.start(self.timeout)
 	self.rescale_texture()
 
 const scene = preload("res://scenes/lights/Light.tscn")
-static func create(radius, time_limit, dynamic = true):
+static func create(radius, timeout, dynamic = true):
 	var light = scene.instantiate()
 	light.radius = radius
-	light.time_limit = time_limit
+	light.timeout = timeout
 	if not dynamic:
 		light.freeze = true
 		light.get_node(^"CollisionShape2D").disabled = true
@@ -29,6 +29,10 @@ func shrink(amount):
 
 func rescale_texture():
 	light.texture_scale = radius / self.scale.x / 256
+
+func set_timeout(timeout):
+	self.timeout = timeout
+	$Timer.start(self.timeout)
 
 func _on_timer_timeout():
 	light.enabled = false
