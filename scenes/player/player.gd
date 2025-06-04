@@ -176,11 +176,8 @@ func carry_light(light):
 	
 	# Reparent to player marker
 	light.reparent($LightMarker)
-	
-	# Reset physics properties
 	light.position = Vector2.ZERO
-	light.freeze = true
-	light.get_node(^"CollisionShape2D").disabled = true
+	light.set_dynamic(false)
 
 	# update light radius
 	light.resize(light.radius * light.held_factor)
@@ -189,11 +186,8 @@ func drop_light():
 	self.carried_light.reparent(self.get_parent(), true)
 	
 	# Restore physics properties
-	self.carried_light.freeze = false
-	self.carried_light.get_node(^"CollisionShape2D").disabled = false
-	self.carried_light.linear_velocity = self.velocity*.2#Vector2.ZERO
-	self.carried_light.angular_velocity = 0
-
+	self.carried_light.set_dynamic(true)
+	
 	# update light radius
 	self.carried_light.resize(self.carried_light.radius / self.carried_light.held_factor)
 	
