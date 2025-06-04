@@ -1,15 +1,16 @@
-[gd_scene load_steps=11 format=3 uid="uid://bxhpae2udrhjy"]
+[gd_scene load_steps=12 format=3 uid="uid://bxhpae2udrhjy"]
 
 [ext_resource type="Texture2D" uid="uid://b4ydhiemaff0i" path="res://Background/background1.png" id="1_dc040"]
 [ext_resource type="Texture2D" uid="uid://b64ke51duptuj" path="res://Background/background2.png" id="2_1rhdn"]
-[ext_resource type="PackedScene" uid="uid://dxcvxert3buob" path="res://scenes/player/player.tscn" id="2_gya0h"]
+[ext_resource type="PackedScene" uid="uid://dxcvxert3buob" path="res://scenes/player/Player.tscn" id="2_gya0h"]
 [ext_resource type="Texture2D" uid="uid://cfbk2h5hgk6vn" path="res://Background/background4.png" id="3_1rhdn"]
 [ext_resource type="PackedScene" uid="uid://dnt5y4lr8sd7v" path="res://scenes/tile_map.tscn" id="4_gyg6b"]
 [ext_resource type="Texture2D" uid="uid://bi4epgtqc4vna" path="res://WhatsApp Image 2025-06-03 at 18.15.04.jpeg" id="5_3km4f"]
 [ext_resource type="Script" uid="uid://tbsmvhpapk2y" path="res://scenes/main/camera_2d.gd" id="6_ko0rf"]
 [ext_resource type="PackedScene" uid="uid://be26eggrnftw" path="res://scenes/main/pause_menu.tscn" id="7_sjxhf"]
 [ext_resource type="Script" uid="uid://b8entpw3nvcxt" path="res://scenes/main/speedrun_timer.gd" id="9_ostsq"]
-[ext_resource type="PackedScene" uid="uid://bqrvec1lu3xkv" path="res://scenes/lights/Light.tscn" id="10_3km4f"]
+[ext_resource type="PackedScene" uid="uid://dkw7vi40w1gto" path="res://scenes/lights/LightSpawner.tscn" id="10_3km4f"]
+[ext_resource type="PackedScene" uid="uid://bqrvec1lu3xkv" path="res://scenes/lights/Light.tscn" id="11_qkm1d"]
 
 [node name="Main" type="Node2D"]
 
@@ -101,8 +102,10 @@ blend_mode = 2
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0, 0, 0, 1)
 
-[node name="Light" parent="." instance=ExtResource("10_3km4f")]
-position = Vector2(508, 366)
-radius = 260
+[node name="LightSpawner" parent="." instance=ExtResource("10_3km4f")]
+position = Vector2(542, 350)
+
+[node name="ShadowLight" parent="." instance=ExtResource("11_qkm1d")]
+position = Vector2(954, 262)
 
 [connection signal="landed" from="Player" to="Player/Camera2D" method="_on_player_landed"]

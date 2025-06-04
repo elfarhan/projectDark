@@ -38,6 +38,7 @@ func _get_gravity(velocity: Vector2):
 		return 0
 	else:
 		return fall_gravity
+
 # Calculates the players movement depending on the context
 func _get_movement(decel: float, accel: float, turn: float, delta: float):
 	
@@ -136,19 +137,26 @@ func _set_sprite_direction(direction: int) -> void:
 	else:
 		$AnimatedSprite2D.play("default")
 		
+
+# handle light pickup
 func _input(event):
 	if event.is_action_pressed("Carry_Drop"):
-		print(self.carried_light)
 		if self.carried_light != null:
 			drop_light()
 		else:
 			for body in $InteractionShape.get_overlapping_bodies():
 				if body is Light:
 					carry_light(body)
+					break
 
 func carry_light(light):
 	print("picking up light")
 	self.carried_light = light
+	
+	# inform spawner
+	if light.get_parent() is LightSpawner:
+		light.get_parent().mark_picked_up()
+	
 	# Reparent to player marker
 	light.reparent($LightMarker)
 	
