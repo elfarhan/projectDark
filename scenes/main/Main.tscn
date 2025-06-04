@@ -1931,7 +1931,6 @@ scale = Vector2(3.12441, 2.07812)
 texture = ExtResource("3_1rhdn")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="ParallaxBackground"]
-visible = false
 script = ExtResource("10_2tpxt")
 
 [node name="Player" parent="." instance=ExtResource("2_gya0h")]
@@ -1980,7 +1979,6 @@ text = "0:00"
 script = ExtResource("9_ostsq")
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
-visible = false
 color = Color(0, 0, 0, 1)
 energy = 1.5
 blend_mode = 2
