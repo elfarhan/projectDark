@@ -13,6 +13,20 @@ func _ready():
 		$Timer.start(self.time_limit)
 	self.rescale_texture()
 
+const scene = preload("res://scenes/lights/Light.tscn")
+static func create(radius, time_limit, dynamic = true):
+	var light = scene.instantiate()
+	light.radius = radius
+	light.time_limit = time_limit
+	if not dynamic:
+		light.freeze = true
+		light.get_node(^"CollisionShape2D").disabled = true
+	return light
+
+func shrink(amount):
+	self.radius -= amount
+	self.rescale_texture()
+
 func rescale_texture():
 	light.texture_scale = radius / self.scale.x / 256
 

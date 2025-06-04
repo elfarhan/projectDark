@@ -12,14 +12,9 @@ func _ready():
 	$SpawnTimer.start(0.1)
 
 func _on_spawn_timer_timeout():
-	print("light spawned")
 	$SpawnTimer.stop()
-	var light = light_scene.instantiate()
-	light.radius = self.light_radius
-	light.time_limit = self.light_time_limit
-	add_child(light)
+	add_child(Light.create(self.light_radius, self.light_time_limit))
 
 func mark_picked_up():
 	if self.respawn:
-		print("light respawn timer started")
 		$SpawnTimer.start(self.delay)
