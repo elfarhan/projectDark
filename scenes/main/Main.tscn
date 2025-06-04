@@ -81,6 +81,7 @@ platform_wall_layers = 1
 zoom = Vector2(1.3, 1.3)
 limit_left = 0
 limit_bottom = 775
+position_smoothing_enabled = true
 position_smoothing_speed = 10.0
 drag_bottom_margin = 1.0
 script = ExtResource("6_ko0rf")
