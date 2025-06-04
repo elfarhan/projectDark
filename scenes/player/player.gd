@@ -109,12 +109,12 @@ func _physics_process(delta):
 				global_position.x +=  -900*delta
 				velocity.x += -900
 		if ray_cast_horizontal.is_colliding() and !ray_cast_horizantal_buttom.is_colliding():
-			#global_position.y = 900*delta
-			velocity.y -= 900*delta
+			#global_position.y = -9*delta
+			velocity.y -= 9*delta
 			
-		elif  ray_cast_horizontal.is_colliding() and !ray_cast_horizantal_top.is_colliding():
+		#elif  ray_cast_horizontal.is_colliding() and !ray_cast_horizantal_top.is_colliding():
 			#global_position.y = 900*delta
-			velocity.y -= 900*delta
+		#	velocity.y -= 900*delta
 	was_on_floor = is_on_floor()
 	# handle horizontal movement
 	if is_on_floor():

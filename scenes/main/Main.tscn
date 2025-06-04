@@ -1931,6 +1931,7 @@ scale = Vector2(3.12441, 2.07812)
 texture = ExtResource("3_1rhdn")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="ParallaxBackground"]
+visible = false
 script = ExtResource("10_2tpxt")
 
 [node name="Player" parent="." instance=ExtResource("2_gya0h")]
