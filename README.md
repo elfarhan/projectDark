@@ -10,9 +10,10 @@
 === Camera
 - fix camera bounds
 - lookahead while jumping
-=== Art
+=== Grafik
 - alles
+- control hints
+- light/npc interaction markers
 
 == Level Design
 - alles
-
