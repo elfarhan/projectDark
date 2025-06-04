@@ -1,7 +1,11 @@
 class_name Light
 extends RigidBody2D
 
+## current radius of the light
 @export_range(0, 2048, 8) var radius = 256 
+## radius size change when dropped
+@export_range(0, 10, 0.125) var held_factor = 0.75
+
 @export var timeout = 0
 @onready var timer = $Timer
 @onready var light = $PointLight2D
@@ -25,6 +29,10 @@ static func create(radius, timeout, dynamic = true):
 
 func shrink(amount):
 	self.radius -= amount
+	self.rescale_texture()
+
+func resize(radius):
+	self.radius = radius
 	self.rescale_texture()
 
 func rescale_texture():

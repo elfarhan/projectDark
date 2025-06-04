@@ -182,6 +182,9 @@ func carry_light(light):
 	light.freeze = true
 	light.get_node(^"CollisionShape2D").disabled = true
 
+	# update light radius
+	light.resize(light.radius * light.held_factor)
+
 func drop_light():
 	self.carried_light.reparent(self.get_parent(), true)
 	
@@ -190,4 +193,8 @@ func drop_light():
 	self.carried_light.get_node(^"CollisionShape2D").disabled = false
 	self.carried_light.linear_velocity = self.velocity*.2#Vector2.ZERO
 	self.carried_light.angular_velocity = 0
+
+	# update light radius
+	self.carried_light.resize(self.carried_light.radius / self.carried_light.held_factor)
+	
 	self.carried_light = null
