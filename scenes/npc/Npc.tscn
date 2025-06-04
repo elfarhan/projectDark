@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://b1cfr4gb1plnd"]
+
+[ext_resource type="Script" uid="uid://bwuh72xgydidh" path="res://scenes/npc/npc.gd" id="1_vrj7p"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8p3si"]
+radius = 44.0454
+
+[node name="Npc" type="Area2D"]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("1_vrj7p")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -49)
+shape = SubResource("CircleShape2D_8p3si")
+
+[node name="LightMarker" type="Marker2D" parent="."]
+position = Vector2(33, -47)

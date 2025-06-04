@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://bxhpae2udrhjy"]
+[gd_scene load_steps=20 format=3 uid="uid://bxhpae2udrhjy"]
 
 [ext_resource type="Texture2D" uid="uid://b4ydhiemaff0i" path="res://Background/background1.png" id="1_dc040"]
 [ext_resource type="Texture2D" uid="uid://b64ke51duptuj" path="res://Background/background2.png" id="2_1rhdn"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://b8entpw3nvcxt" path="res://scenes/main/speedrun_timer.gd" id="9_ostsq"]
 [ext_resource type="PackedScene" uid="uid://dkw7vi40w1gto" path="res://scenes/lights/LightSpawner.tscn" id="10_3km4f"]
 [ext_resource type="PackedScene" uid="uid://bqrvec1lu3xkv" path="res://scenes/lights/Light.tscn" id="11_qkm1d"]
+[ext_resource type="PackedScene" uid="uid://b1cfr4gb1plnd" path="res://scenes/npc/Npc.tscn" id="12_p5fgu"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_qkm1d"]
 polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
@@ -1997,5 +1998,8 @@ position = Vector2(542, 350)
 
 [node name="Light" parent="." instance=ExtResource("11_qkm1d")]
 position = Vector2(792, 365)
+
+[node name="Npc" parent="." instance=ExtResource("12_p5fgu")]
+position = Vector2(948, 312)
 
 [connection signal="landed" from="Player" to="Player/Camera2D" method="_on_player_landed"]
