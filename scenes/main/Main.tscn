@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bxhpae2udrhjy"]
+[gd_scene load_steps=17 format=3 uid="uid://bxhpae2udrhjy"]
 
 [ext_resource type="Texture2D" uid="uid://b4ydhiemaff0i" path="res://Background/background1.png" id="1_dc040"]
 [ext_resource type="Texture2D" uid="uid://b64ke51duptuj" path="res://Background/background2.png" id="2_1rhdn"]
@@ -1884,6 +1884,10 @@ sources/0 = SubResource("TileSetAtlasSource_47enk")
 cull_mode = 1
 polygon = PackedVector2Array(176, -160, 224, -160, 224, -176, 176, -176)
 
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_2tpxt"]
+cull_mode = 2
+polygon = PackedVector2Array(160, -48, 336, -48, 336, -16, 160, -16)
+
 [node name="Main" type="Node2D"]
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
@@ -1949,6 +1953,9 @@ layer_0/tile_data = PackedInt32Array(917502, 1638400, 6, 851966, 917504, 6, 8519
 
 [node name="LightOccluder2D2" type="LightOccluder2D" parent="TileMap"]
 occluder = SubResource("OccluderPolygon2D_p5fgu")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="TileMap"]
+occluder = SubResource("OccluderPolygon2D_2tpxt")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
