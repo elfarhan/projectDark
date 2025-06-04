@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://kdrhs6n7lsv4" path="res://AnimationSheet_Character 3.png" id="3_gmlin"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bjhaq"]
-size = Vector2(72, 65)
+size = Vector2(56, 45)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gmlin"]
 atlas = ExtResource("3_gmlin")
@@ -49,7 +49,7 @@ script = ExtResource("1_johqr")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-32, 12.5)
+position = Vector2(-32, 22.5)
 shape = SubResource("RectangleShape2D_bjhaq")
 
 [node name="CoyoteTimer" type="Timer" parent="."]
@@ -71,6 +71,18 @@ sprite_frames = SubResource("SpriteFrames_gmlin")
 
 [node name="LightMarker" type="Marker2D" parent="."]
 position = Vector2(38, 12)
+
+[node name="RayCast2D_right" type="RayCast2D" parent="."]
+position = Vector2(-4, 5)
+target_position = Vector2(0, -17)
+
+[node name="RayCast2D_center" type="RayCast2D" parent="."]
+position = Vector2(-32, 5)
+target_position = Vector2(0, -17)
+
+[node name="RayCast2D_left" type="RayCast2D" parent="."]
+position = Vector2(-60, 5)
+target_position = Vector2(0, -17)
 
 [connection signal="timeout" from="CoyoteTimer" to="." method="_on_coyote_timer_timeout"]
 [connection signal="timeout" from="JumpBufferTimer" to="." method="_on_jump_buffer_timer_timeout"]

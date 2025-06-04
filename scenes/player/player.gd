@@ -7,11 +7,15 @@ extends CharacterBody2D
 @export_range(0, 500) var acceleration := 140.0
 @export_range(0, 50) var deceleration := 150.0
 @export_range(0, 50) var turn_speed := 90.0
+var horizontal_movement_direction = 1
 
 @export_group("jump")
 @onready var jump_height_timer = $JumpHeightTimer
 @onready var jump_buffer_timer = $JumpBufferTimer
 @onready var jump_coyote_timer = $CoyoteTimer
+@onready var ray_cast_right = $RayCast2D_right
+@onready var ray_cast_left= $RayCast2D_left
+@onready var ray_cast_center = $RayCast2D_center
 var buffered_jump = false
 var coyote_jump = false
 var was_on_floor = true
@@ -35,7 +39,7 @@ func _get_movement(decel: float, accel: float, turn: float, delta: float):
 	
 	## horizontal movements:
 	var direction = Input.get_axis("Move_Left", "Move_Right")
-	
+	horizontal_movement_direction = sign(direction)
 	if direction: # accelerate
 		velocity.x += sign(direction) * accel * delta * 100
 	
@@ -48,7 +52,9 @@ func _get_movement(decel: float, accel: float, turn: float, delta: float):
 	velocity.x = clamp(velocity.x, -max_speed, max_speed)
 	
 
-
+func _ready() -> void:
+	$AnimatedSprite2D.play("default")
+	$AnimatedSprite2D.flip_h = false
 
 func jump():
 	velocity.y = jump_speed
@@ -88,6 +94,14 @@ func _physics_process(delta):
 	# fall with gravity
 	if !is_on_floor():
 		velocity.y += _get_gravity(velocity) * delta
+		if velocity.y <0:
+			if !ray_cast_center.is_colliding() and ray_cast_left.is_colliding():
+				global_position.x += 900*delta
+				velocity.x += 900
+			elif !ray_cast_center.is_colliding() and ray_cast_right.is_colliding():
+				global_position.x +=  -900*delta
+				velocity.x += -900
+			
 		
 	was_on_floor = is_on_floor()
 	# handle horizontal movement
@@ -109,10 +123,10 @@ func _physics_process(delta):
 
 # Flips the player sprite depending on their movemnt direction
 func _set_sprite_direction(direction: int) -> void:
-	if direction > 0.0:
+	if direction < 0.0:
 		$AnimatedSprite2D.flip_h = true
 
-	if direction < 0.0:
+	if direction > 0.0:
 		$AnimatedSprite2D.flip_h = false
 
 	if velocity != Vector2.ZERO:
