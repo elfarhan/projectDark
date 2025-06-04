@@ -10,6 +10,7 @@ extends RigidBody2D
 @onready var timer = $Timer
 @onready var light = $PointLight2D
 
+# TODO: investigate flickering
 func _ready():
 	light.enabled = true
 	# Start the timer when scene loads
