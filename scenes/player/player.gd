@@ -27,11 +27,13 @@ var was_on_floor = true
 @onready var jump_acceleration = gravity*(1-min_jump_height/max_jump_height)
 @export_range(0, 1000) var gravity := 1000.0
 @onready var fall_gravity = gravity * 2.0
-
+@export_range(1000, 2500) var fall_speed_cutoff := 1800.0
 
 func _get_gravity(velocity: Vector2):
 	if velocity.y <0:
 		return gravity
+	elif  velocity.y >= fall_speed_cutoff:
+		return 0
 	else:
 		return fall_gravity
 # Calculates the players movement depending on the context
@@ -114,7 +116,7 @@ func _physics_process(delta):
 	move_and_slide()
 	# buffered jumps
 	if !was_on_floor and is_on_floor():
-		if previous_velocity_y >1300:
+		if previous_velocity_y >= fall_speed_cutoff:
 			emit_signal("landed")
 			print("shake!")
 		if buffered_jump:

@@ -3,7 +3,7 @@ extends Camera2D
 # Camera settings
 
 @onready var player = $".."
-@export var look_ahead_amount: float = 20.0
+@export var look_ahead_amount: float = 40.0
 @export var ease_duration: float = 1.5
 var ease_timer: float = 0.0
 var target_look_ahead: Vector2
@@ -42,7 +42,8 @@ func _physics_process(delta):
 
 	var s = ease_timer / ease_duration if ease_duration > 0 else 1.0
 
-	offset.x = ease_in_out_sine(0.0, target_look_ahead.x, s)
+	#offset.x = ease_in_out_sine(0.0, target_look_ahead.x, s)
+	offset.x = ease_in_out_sine(offset.x , target_look_ahead.x, delta*10)
 	offset.y = randf_range(-_shake_strength, _shake_strength) if _shake_strength > 0 else 0.0
 
 
