@@ -8,6 +8,7 @@
 radius = 11.0
 
 [node name="ShadowLight" type="RigidBody2D"]
+collision_layer = 5
 script = ExtResource("1_vxin6")
 metadata/_edit_group_ = true
 

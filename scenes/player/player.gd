@@ -13,9 +13,9 @@ var horizontal_movement_direction = 1
 @onready var jump_height_timer = $JumpHeightTimer
 @onready var jump_buffer_timer = $JumpBufferTimer
 @onready var jump_coyote_timer = $CoyoteTimer
-@onready var ray_cast_right = $RayCast2D_right
-@onready var ray_cast_left= $RayCast2D_left
-@onready var ray_cast_center = $RayCast2D_center
+@onready var ray_cast_right = $Raycasts/Right
+@onready var ray_cast_left= $Raycasts/Left
+@onready var ray_cast_center = $Raycasts/Center
 var buffered_jump = false
 var coyote_jump = false
 var was_on_floor = true
@@ -28,6 +28,8 @@ var was_on_floor = true
 @export_range(0, 1000) var gravity := 1000.0
 @onready var fall_gravity = gravity * 2.0
 @export_range(1000, 2500) var fall_speed_cutoff := 1800.0
+
+var carried_light
 
 func _get_gravity(velocity: Vector2):
 	if velocity.y <0:
@@ -52,7 +54,6 @@ func _get_movement(decel: float, accel: float, turn: float, delta: float):
 		velocity.x = move_toward(velocity.x, -velocity.x, turn * delta * 100)
 	
 	velocity.x = clamp(velocity.x, -max_speed, max_speed)
-	
 
 func _ready() -> void:
 	$AnimatedSprite2D.play("default")
@@ -78,10 +79,7 @@ func _on_coyote_timer_timeout() -> void:
 func _on_jump_buffer_timer_timeout() -> void:
 	buffered_jump = false
 
-
-
 func _physics_process(delta):
-	
 	if Input.is_action_just_pressed("Jump"):
 		jump_height_timer.start()
 		if is_on_floor(): 
@@ -105,7 +103,6 @@ func _physics_process(delta):
 				global_position.x +=  -900*delta
 				velocity.x += -900
 			
-	
 	was_on_floor = is_on_floor()
 	# handle horizontal movement
 	if is_on_floor():
@@ -126,7 +123,6 @@ func _physics_process(delta):
 		jump_coyote_timer.start()
 		coyote_jump = true
 
-
 # Flips the player sprite depending on their movemnt direction
 func _set_sprite_direction(direction: int) -> void:
 	if direction < 0.0:
@@ -140,3 +136,33 @@ func _set_sprite_direction(direction: int) -> void:
 	else:
 		$AnimatedSprite2D.play("default")
 		
+func _input(event):
+	if event.is_action_pressed("Carry_Drop"):
+		print(self.carried_light)
+		if self.carried_light != null:
+			drop_light()
+		else:
+			for body in $InteractionShape.get_overlapping_bodies():
+				if body is Light:
+					carry_light(body)
+
+func carry_light(light):
+	print("picking up light")
+	self.carried_light = light
+	# Reparent to player marker
+	light.reparent($LightMarker)
+	
+	# Reset physics properties
+	light.position = Vector2.ZERO
+	light.freeze = true
+	light.get_node(^"CollisionShape2D").disabled = true
+
+func drop_light():
+	self.carried_light.reparent(self.get_parent(), true)
+	
+	# Restore physics properties
+	self.carried_light.freeze = false
+	self.carried_light.get_node(^"CollisionShape2D").disabled = false
+	self.carried_light.linear_velocity = self.velocity*.2#Vector2.ZERO
+	self.carried_light.angular_velocity = 0
+	self.carried_light = null
