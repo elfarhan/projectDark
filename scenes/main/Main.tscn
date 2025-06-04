@@ -106,6 +106,6 @@ color = Color(0, 0, 0, 1)
 position = Vector2(542, 350)
 
 [node name="ShadowLight" parent="." instance=ExtResource("11_qkm1d")]
-position = Vector2(954, 262)
+position = Vector2(791, 382)
 
 [connection signal="landed" from="Player" to="Player/Camera2D" method="_on_player_landed"]
