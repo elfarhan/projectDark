@@ -3,7 +3,7 @@ extends Camera2D
 @onready var player = $".."
 
 @export var h_look_ahead_amount: float = 40.0
-@export var v_look_ahead_amount: float = 5.0
+@export var v_look_ahead_amount: float = 55.0
 @export var ease_speed: float = 10.0
 
 @export var max_shake: float = 10.5
@@ -47,6 +47,9 @@ func _physics_process(delta):
 
 	# Combine effects
 	var base_position = global_position
+	var size = get_viewport_rect().size
+	#var width = 
+	print(size.length())
 	var desired_position = base_position + _current_lookahead_offset + shake_offset
 	desired_position.x = clamp(desired_position.x, limit_left, limit_right)
 	desired_position.y = clamp(desired_position.y, limit_top, limit_bottom)

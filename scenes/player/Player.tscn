@@ -1,10 +1,15 @@
-[gd_scene load_steps=10 format=3 uid="uid://dxcvxert3buob"]
+[gd_scene load_steps=12 format=3 uid="uid://dxcvxert3buob"]
 
 [ext_resource type="Script" uid="uid://2nvoq7dsv0" path="res://scenes/player/player.gd" id="1_johqr"]
+[ext_resource type="Texture2D" uid="uid://cdlltw6tcri0i" path="res://artwork/Characterless.png" id="2_4kuee"]
 [ext_resource type="Texture2D" uid="uid://kdrhs6n7lsv4" path="res://AnimationSheet_Character 3.png" id="3_gmlin"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bjhaq"]
-size = Vector2(29, 59.5)
+size = Vector2(19, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_524rm"]
+atlas = ExtResource("2_4kuee")
+region = Rect2(0, 0, 8000, 8000)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gmlin"]
 atlas = ExtResource("3_gmlin")
@@ -26,6 +31,14 @@ region = Rect2(60, 0, 19, 25)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_524rm")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_gmlin")
 }, {
 "duration": 1.0,
@@ -38,7 +51,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_h17s1")
 }],
 "loop": true,
-"name": &"default",
+"name": &"default2",
 "speed": 3.0
 }]
 
@@ -50,7 +63,7 @@ collision_mask = 2
 script = ExtResource("1_johqr")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-0.5, -30.25)
+position = Vector2(-1.5, -27)
 shape = SubResource("RectangleShape2D_bjhaq")
 
 [node name="CoyoteTimer" type="Timer" parent="."]
@@ -66,9 +79,10 @@ wait_time = 0.1
 one_shot = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -30)
-scale = Vector2(2.14756, 2.37)
+position = Vector2(-1, -32)
+scale = Vector2(0.00762875, 0.00841892)
 sprite_frames = SubResource("SpriteFrames_gmlin")
+autoplay = "default2"
 
 [node name="LightMarker" type="Marker2D" parent="."]
 position = Vector2(22, -36)
@@ -84,36 +98,36 @@ shape = SubResource("CircleShape2D_gfjak")
 [node name="Raycasts" type="Node2D" parent="."]
 
 [node name="Left" type="RayCast2D" parent="Raycasts"]
-position = Vector2(-19, -51)
+position = Vector2(-7, -39)
 target_position = Vector2(0, -15)
 collision_mask = 2
 
 [node name="Right" type="RayCast2D" parent="Raycasts"]
-position = Vector2(21, -51)
+position = Vector2(12, -39)
 target_position = Vector2(0, -15)
 collision_mask = 2
 
 [node name="Center" type="RayCast2D" parent="Raycasts"]
-position = Vector2(1, -51)
+position = Vector2(1, -39)
 target_position = Vector2(0, -15)
 collision_mask = 2
 
 [node name="buttom" type="RayCast2D" parent="Raycasts"]
-position = Vector2(-19, -6)
+position = Vector2(-14, -10)
 rotation = -1.5708
-target_position = Vector2(0, 42)
+target_position = Vector2(0, 30)
 collision_mask = 2
 
 [node name="horizontal" type="RayCast2D" parent="Raycasts"]
-position = Vector2(-19, -30)
+position = Vector2(-14, -30)
 rotation = -1.5708
-target_position = Vector2(0, 42)
+target_position = Vector2(0, 30)
 collision_mask = 2
 
 [node name="top" type="RayCast2D" parent="Raycasts"]
-position = Vector2(-19, -54)
+position = Vector2(-14, -44)
 rotation = -1.5708
-target_position = Vector2(0, 42)
+target_position = Vector2(0, 30)
 collision_mask = 2
 
 [connection signal="timeout" from="CoyoteTimer" to="." method="_on_coyote_timer_timeout"]

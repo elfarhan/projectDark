@@ -35,7 +35,7 @@ var was_on_floor = true
 @export_range(1000, 2500) var fall_speed_cutoff := 1800.0
 
 var carried_light
-
+var direction = 1
 func _get_gravity(velocity: Vector2):
 	if velocity.y <0:
 		return gravity
@@ -48,7 +48,7 @@ func _get_gravity(velocity: Vector2):
 func _get_movement(decel: float, accel: float, turn: float, delta: float):
 	
 	## horizontal movements:
-	var direction = Input.get_axis("Move_Left", "Move_Right")
+	direction = Input.get_axis("Move_Left", "Move_Right")
 	horizontal_movement_direction = sign(direction)
 	if direction: # accelerate
 		velocity.x += sign(direction) * accel * delta * 100
@@ -122,6 +122,7 @@ func _physics_process(delta):
 	else:
 		_get_movement(deceleration*0.5, acceleration*.5, turn_speed*.01, delta) # air movement speed
 	var previous_velocity_y = velocity.y
+	_set_sprite_direction(direction)
 	move_and_slide()
 	# buffered jumps
 	if !was_on_floor and is_on_floor():

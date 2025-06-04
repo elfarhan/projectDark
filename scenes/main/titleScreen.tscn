@@ -1,13 +1,17 @@
-[gd_scene load_steps=11 format=3 uid="uid://dugs0loarftr"]
+[gd_scene load_steps=13 format=3 uid="uid://dugs0loarftr"]
 
 [ext_resource type="Script" uid="uid://ceekaaqvlk5qa" path="res://scenes/main/title_screen.gd" id="1_c2ksh"]
 [ext_resource type="Texture2D" uid="uid://b4ydhiemaff0i" path="res://Background/background1.png" id="1_h1nep"]
 [ext_resource type="Texture2D" uid="uid://cfbk2h5hgk6vn" path="res://Background/background4.png" id="2_c2ksh"]
+[ext_resource type="Texture2D" uid="uid://dfeirpj5jcrki" path="res://artwork/Bg1test.png" id="3_kkwvi"]
 [ext_resource type="PackedScene" uid="uid://d2wjbrlbivhcg" path="res://scenes/main/options.tscn" id="4_a5rkg"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_l4ihj"]
 texture = ExtResource("1_h1nep")
 modulate_color = Color(0.758192, 0.758192, 0.758192, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qn2vq"]
+texture = ExtResource("3_kkwvi")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kkwvi"]
 texture = ExtResource("2_c2ksh")
@@ -69,6 +73,14 @@ offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_l4ihj")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 1276.0
+offset_bottom = 721.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_qn2vq")
 
 [node name="BackgroundImage2" type="Panel" parent="."]
 layout_mode = 1
@@ -145,12 +157,13 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -299.0
-offset_top = 121.0
+offset_top = 192.0
 offset_right = 299.0
-offset_bottom = 258.0
+offset_bottom = 329.0
 grow_horizontal = 2
 theme_override_font_sizes/font_size = 100
-text = "Project Dark"
+text = "Dark Tree"
+horizontal_alignment = 1
 
 [node name="TeamName" type="Label" parent="."]
 layout_mode = 1

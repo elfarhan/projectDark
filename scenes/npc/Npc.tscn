@@ -1,9 +1,46 @@
-[gd_scene load_steps=3 format=3 uid="uid://b1cfr4gb1plnd"]
+[gd_scene load_steps=9 format=3 uid="uid://b1cfr4gb1plnd"]
 
 [ext_resource type="Script" uid="uid://bwuh72xgydidh" path="res://scenes/npc/npc.gd" id="1_vrj7p"]
+[ext_resource type="Texture2D" uid="uid://kdrhs6n7lsv4" path="res://AnimationSheet_Character 3.png" id="2_7yikv"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8p3si"]
 radius = 44.0454
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xsig2"]
+atlas = ExtResource("2_7yikv")
+region = Rect2(0, 0, 19, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_om5nc"]
+atlas = ExtResource("2_7yikv")
+region = Rect2(19, 0, 19, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3pywl"]
+atlas = ExtResource("2_7yikv")
+region = Rect2(38, 0, 19, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f3n3r"]
+atlas = ExtResource("2_7yikv")
+region = Rect2(57, 0, 19, 25)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7b4ut"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xsig2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_om5nc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3pywl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f3n3r")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [node name="Npc" type="Area2D"]
 collision_layer = 8
@@ -16,3 +53,8 @@ shape = SubResource("CircleShape2D_8p3si")
 
 [node name="LightMarker" type="Marker2D" parent="."]
 position = Vector2(33, -47)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(1.90735e-06, -48)
+scale = Vector2(3.44737, 3.44737)
+sprite_frames = SubResource("SpriteFrames_7b4ut")
