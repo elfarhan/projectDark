@@ -18,6 +18,8 @@ var horizontal_movement_direction = 1
 @onready var ray_cast_center = $Raycasts/Center
 @onready var ray_cast_horizontal = $Raycasts/horizontal
 @onready var ray_cast_horizantal_buttom = $Raycasts/buttom
+@onready var ray_cast_horizantal_top = $Raycasts/top
+
 
 var buffered_jump = false
 var coyote_jump = false
