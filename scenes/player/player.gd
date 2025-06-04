@@ -161,7 +161,6 @@ func _input(event):
 					break
 
 func carry_light(light):
-	print("picking up light")
 	self.carried_light = light
 	
 	# inform spawner
