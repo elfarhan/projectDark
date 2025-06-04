@@ -16,6 +16,9 @@ var horizontal_movement_direction = 1
 @onready var ray_cast_right = $Raycasts/Right
 @onready var ray_cast_left= $Raycasts/Left
 @onready var ray_cast_center = $Raycasts/Center
+@onready var ray_cast_horizontal = $Raycasts/horizontal
+@onready var ray_cast_horizantal_buttom = $Raycasts/buttom
+
 var buffered_jump = false
 var coyote_jump = false
 var was_on_floor = true
@@ -103,7 +106,13 @@ func _physics_process(delta):
 			elif !ray_cast_center.is_colliding() and ray_cast_right.is_colliding() and velocity.x<=0:
 				global_position.x +=  -900*delta
 				velocity.x += -900
+		if ray_cast_horizontal.is_colliding() and !ray_cast_horizantal_buttom.is_colliding():
+			#global_position.y = 900*delta
+			velocity.y -= 900*delta
 			
+		elif  ray_cast_horizontal.is_colliding() and !ray_cast_horizantal_top.is_colliding():
+			#global_position.y = 900*delta
+			velocity.y -= 900*delta
 	was_on_floor = is_on_floor()
 	# handle horizontal movement
 	if is_on_floor():

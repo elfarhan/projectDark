@@ -48,6 +48,15 @@ radius = 45.0111
 [node name="Player" type="CharacterBody2D"]
 collision_mask = 15
 script = ExtResource("1_johqr")
+max_speed = null
+acceleration = null
+deceleration = null
+turn_speed = null
+max_jump_height = null
+min_jump_height = null
+jump_duration = null
+gravity = null
+fall_speed_cutoff = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-0.5, -30.25)
@@ -94,6 +103,21 @@ target_position = Vector2(0, -15)
 [node name="Center" type="RayCast2D" parent="Raycasts"]
 position = Vector2(1, -51)
 target_position = Vector2(0, -15)
+
+[node name="buttom" type="RayCast2D" parent="Raycasts"]
+position = Vector2(-19, -6)
+rotation = -1.5708
+target_position = Vector2(0, 42)
+
+[node name="horizontal" type="RayCast2D" parent="Raycasts"]
+position = Vector2(-19, -30)
+rotation = -1.5708
+target_position = Vector2(0, 42)
+
+[node name="top" type="RayCast2D" parent="Raycasts"]
+position = Vector2(-19, -54)
+rotation = -1.5708
+target_position = Vector2(0, 42)
 
 [connection signal="timeout" from="CoyoteTimer" to="." method="_on_coyote_timer_timeout"]
 [connection signal="timeout" from="JumpBufferTimer" to="." method="_on_jump_buffer_timer_timeout"]
