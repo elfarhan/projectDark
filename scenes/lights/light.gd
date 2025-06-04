@@ -22,10 +22,17 @@ static func create(radius, timeout, dynamic = true):
 	var light = scene.instantiate()
 	light.radius = radius
 	light.timeout = timeout
-	if not dynamic:
-		light.freeze = true
-		light.get_node(^"CollisionShape2D").disabled = true
+	light.set_dynamic(dynamic)
 	return light
+
+func set_dynamic(flag):
+	if flag:
+		self.linear_velocity = Vector2.ZERO
+		self.freeze = false
+		self.get_node(^"CollisionShape2D").disabled = false
+	else:
+		self.freeze = true
+		self.get_node(^"CollisionShape2D").disabled = true
 
 func shrink(amount):
 	self.radius -= amount
