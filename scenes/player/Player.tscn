@@ -86,29 +86,35 @@ shape = SubResource("CircleShape2D_gfjak")
 [node name="Left" type="RayCast2D" parent="Raycasts"]
 position = Vector2(-19, -51)
 target_position = Vector2(0, -15)
+collision_mask = 2
 
 [node name="Right" type="RayCast2D" parent="Raycasts"]
 position = Vector2(21, -51)
 target_position = Vector2(0, -15)
+collision_mask = 2
 
 [node name="Center" type="RayCast2D" parent="Raycasts"]
 position = Vector2(1, -51)
 target_position = Vector2(0, -15)
+collision_mask = 2
 
 [node name="buttom" type="RayCast2D" parent="Raycasts"]
 position = Vector2(-19, -6)
 rotation = -1.5708
 target_position = Vector2(0, 42)
+collision_mask = 2
 
 [node name="horizontal" type="RayCast2D" parent="Raycasts"]
 position = Vector2(-19, -30)
 rotation = -1.5708
 target_position = Vector2(0, 42)
+collision_mask = 2
 
 [node name="top" type="RayCast2D" parent="Raycasts"]
 position = Vector2(-19, -54)
 rotation = -1.5708
 target_position = Vector2(0, 42)
+collision_mask = 2
 
 [connection signal="timeout" from="CoyoteTimer" to="." method="_on_coyote_timer_timeout"]
 [connection signal="timeout" from="JumpBufferTimer" to="." method="_on_jump_buffer_timer_timeout"]
