@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://kdrhs6n7lsv4" path="res://AnimationSheet_Character 3.png" id="3_gmlin"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bjhaq"]
-size = Vector2(56, 45)
+size = Vector2(29, 59.5)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gmlin"]
 atlas = ExtResource("3_gmlin")
@@ -43,13 +43,10 @@ animations = [{
 }]
 
 [node name="Player" type="CharacterBody2D"]
-position = Vector2(5, -9)
-scale = Vector2(0.5, 1)
 script = ExtResource("1_johqr")
-metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-32, 22.5)
+position = Vector2(-0.5, -30.25)
 shape = SubResource("RectangleShape2D_bjhaq")
 
 [node name="CoyoteTimer" type="Timer" parent="."]
@@ -65,23 +62,23 @@ wait_time = 0.1
 one_shot = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(-31.8035, 16.75)
-scale = Vector2(4.18985, 2.34)
+position = Vector2(0, -30)
+scale = Vector2(2.14756, 2.37)
 sprite_frames = SubResource("SpriteFrames_gmlin")
 
 [node name="LightMarker" type="Marker2D" parent="."]
-position = Vector2(38, 12)
+position = Vector2(22, -36)
 
 [node name="RayCast2D_right" type="RayCast2D" parent="."]
-position = Vector2(-12, 5)
+position = Vector2(21, -51)
 target_position = Vector2(0, -15)
 
 [node name="RayCast2D_center" type="RayCast2D" parent="."]
-position = Vector2(-32, 5)
+position = Vector2(1, -51)
 target_position = Vector2(0, -15)
 
 [node name="RayCast2D_left" type="RayCast2D" parent="."]
-position = Vector2(-52, 5)
+position = Vector2(-19, -51)
 target_position = Vector2(0, -15)
 
 [connection signal="timeout" from="CoyoteTimer" to="." method="_on_coyote_timer_timeout"]
