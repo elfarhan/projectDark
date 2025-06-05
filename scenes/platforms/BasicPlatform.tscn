@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://chew4n3g3ahlt"]
+
+[ext_resource type="Script" uid="uid://1ej81pv5q3lv" path="res://scenes/platforms/platform.gd" id="1_47m0b"]
+[ext_resource type="Texture2D" uid="uid://73n8vn0dbmk2" path="res://assets/platforms/Ast1.png" id="2_23jxe"]
+
+[node name="Platform" type="StaticBody2D"]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_47m0b")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(-48, 17)
+scale = Vector2(58.8, 9.92229)
+polygon = PackedVector2Array(9.23469, -8.84647, 9.31973, -14.5911, 8.41837, -15.1958, 8.55442, -17.2115, 5, -17.413, 1.4966, -19.5295, 0.884354, -16.9091, -0.255102, -18.1185, -1.59864, -17.3123, -2.60204, -15.5989, -4.33673, -15.095, -5.40816, -14.188, -6.46258, -17.3123, -6.81973, -19.6303, -7.53401, -22.8553, -8.18027, -22.8553, -8.94558, -22.2506, -9.08163, -24.2663, -9.89796, -24.188, -10.034, -17.3123, -10.6293, -15.2966, -11.3776, 11.7133, -8.97959, 13.2251, -4.59184, 19.4736, -1.81973, 19.3728, 0.969388, 20.4815, 3.91156, 18.5666, 6.42857, 17.6595, 8.16327, 14.3337, 9.84694, 11.411, 11.0884, 9.49608, 12.0408, 2.44126, 12.6531, -4.00887, 12.7041, -6.8308, 10.4082, -10.7613, 9.65986, -13.2809, 9.43878, -14.188)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_23jxe")
+metadata/_edit_lock_ = true
