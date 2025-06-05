@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dxcvxert3buob"]
+[gd_scene load_steps=15 format=3 uid="uid://dxcvxert3buob"]
 
 [ext_resource type="Script" uid="uid://2nvoq7dsv0" path="res://scenes/player/player.gd" id="1_johqr"]
 [ext_resource type="Texture2D" uid="uid://cdlltw6tcri0i" path="res://artwork/Characterless.png" id="2_4kuee"]
@@ -71,11 +71,18 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_gfjak"]
 radius = 45.0111
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_524rm"]
+radius = 9.0
+height = 38.0
+
 [node name="Player" type="CharacterBody2D"]
 collision_mask = 2
+floor_constant_speed = true
+floor_snap_length = 10.0
 script = ExtResource("1_johqr")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(-1.5, -27)
 shape = SubResource("RectangleShape2D_bjhaq")
 
@@ -101,6 +108,7 @@ autoplay = "default2"
 position = Vector2(22, -36)
 
 [node name="InteractionShape" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 12
 
@@ -111,37 +119,41 @@ shape = SubResource("CircleShape2D_gfjak")
 [node name="Raycasts" type="Node2D" parent="."]
 
 [node name="Left" type="RayCast2D" parent="Raycasts"]
-position = Vector2(-7, -39)
+position = Vector2(-10, -34)
 target_position = Vector2(0, -15)
 collision_mask = 2
 
 [node name="Right" type="RayCast2D" parent="Raycasts"]
-position = Vector2(12, -39)
+position = Vector2(10, -34)
 target_position = Vector2(0, -15)
 collision_mask = 2
 
 [node name="Center" type="RayCast2D" parent="Raycasts"]
-position = Vector2(1, -39)
+position = Vector2(-1, -34)
 target_position = Vector2(0, -15)
 collision_mask = 2
 
 [node name="buttom" type="RayCast2D" parent="Raycasts"]
-position = Vector2(-14, -10)
+position = Vector2(-9, -11)
 rotation = -1.5708
-target_position = Vector2(0, 30)
+target_position = Vector2(-6.48499e-05, 18)
 collision_mask = 2
 
 [node name="horizontal" type="RayCast2D" parent="Raycasts"]
-position = Vector2(-14, -30)
+position = Vector2(-9, -30)
 rotation = -1.5708
-target_position = Vector2(0, 30)
+target_position = Vector2(0, 20)
 collision_mask = 2
 
 [node name="top" type="RayCast2D" parent="Raycasts"]
-position = Vector2(-14, -44)
+position = Vector2(-9, -42)
 rotation = -1.5708
-target_position = Vector2(0, 30)
+target_position = Vector2(0, 20)
 collision_mask = 2
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(0, -26)
+shape = SubResource("CapsuleShape2D_524rm")
 
 [connection signal="timeout" from="CoyoteTimer" to="." method="_on_coyote_timer_timeout"]
 [connection signal="timeout" from="JumpBufferTimer" to="." method="_on_jump_buffer_timer_timeout"]
