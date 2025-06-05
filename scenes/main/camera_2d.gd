@@ -34,12 +34,12 @@ func _physics_process(delta):
 
 	# Lookahead
 	var current_direction = player.horizontal_movement_direction
-	if current_direction != 0 and current_direction != last_direction:
+	if current_direction != 0 and current_direction == -last_direction:
 		last_direction = current_direction
 		direction = current_direction
 		target_look_ahead.x = h_look_ahead_amount * direction
 	
-	target_look_ahead.y = v_look_ahead_amount if player.velocity.y > 0 else 0.0
+	target_look_ahead.y = v_look_ahead_amount if player.velocity.y > 100 else 0.0
 	
 	# Easing
 	_current_lookahead_offset.x = ease_in_out_sine(_current_lookahead_offset.x, target_look_ahead.x, delta * ease_speed)
@@ -54,7 +54,7 @@ func _physics_process(delta):
 	desired_position.x = clamp(desired_position.x, limit_left, limit_right)
 	desired_position.y = clamp(desired_position.y, limit_top, limit_bottom)
 
-	offset = desired_position - base_position
+	#offset = desired_position - base_position
 
 func ease_in_out_sine(start: float, end: float, delta_scaled: float) -> float:
 	var t = clamp(delta_scaled, 0.0, 1.0)

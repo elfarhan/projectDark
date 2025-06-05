@@ -10,7 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://h6q2n1n57hv4" path="res://artwork/Assettest(1).png" id="8_2tpxt"]
 [ext_resource type="PackedScene" uid="uid://b8hxt6ik0v1dm" path="res://scenes/platforms/TestPlatform.tscn" id="9_jsdfw"]
 [ext_resource type="Script" uid="uid://b8entpw3nvcxt" path="res://scenes/main/speedrun_timer.gd" id="9_ostsq"]
-[ext_resource type="Script" path="res://scenes/main/canvas_modulate.gd" id="10_2tpxt"]
+[ext_resource type="Script" uid="uid://km6gh7dpkpxm" path="res://scenes/main/canvas_modulate.gd" id="10_2tpxt"]
 [ext_resource type="PackedScene" uid="uid://dkw7vi40w1gto" path="res://scenes/lights/LightSpawner.tscn" id="10_3km4f"]
 [ext_resource type="PackedScene" uid="uid://bqrvec1lu3xkv" path="res://scenes/lights/Light.tscn" id="11_qkm1d"]
 [ext_resource type="PackedScene" uid="uid://b1cfr4gb1plnd" path="res://scenes/npc/Npc.tscn" id="12_p5fgu"]

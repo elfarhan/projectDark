@@ -1,15 +1,16 @@
-[gd_scene load_steps=12 format=3 uid="uid://dxcvxert3buob"]
+[gd_scene load_steps=14 format=3 uid="uid://dxcvxert3buob"]
 
 [ext_resource type="Script" uid="uid://2nvoq7dsv0" path="res://scenes/player/player.gd" id="1_johqr"]
 [ext_resource type="Texture2D" uid="uid://cdlltw6tcri0i" path="res://artwork/Characterless.png" id="2_4kuee"]
+[ext_resource type="Texture2D" uid="uid://613bwmobbhqp" path="res://assets/characters/character.png" id="2_524rm"]
 [ext_resource type="Texture2D" uid="uid://kdrhs6n7lsv4" path="res://AnimationSheet_Character 3.png" id="3_gmlin"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bjhaq"]
 size = Vector2(19, 42)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_524rm"]
-atlas = ExtResource("2_4kuee")
-region = Rect2(0, 0, 8000, 8000)
+[sub_resource type="AtlasTexture" id="AtlasTexture_tpg5x"]
+atlas = ExtResource("2_524rm")
+region = Rect2(0, 0, 937, 1400)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gmlin"]
 atlas = ExtResource("3_gmlin")
@@ -27,11 +28,15 @@ region = Rect2(41, 0, 19, 25)
 atlas = ExtResource("3_gmlin")
 region = Rect2(60, 0, 19, 25)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_524rm"]
+atlas = ExtResource("2_4kuee")
+region = Rect2(0, 0, 8000, 8000)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_gmlin"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_524rm")
+"texture": SubResource("AtlasTexture_tpg5x")
 }],
 "loop": true,
 "name": &"default",
@@ -53,6 +58,14 @@ animations = [{
 "loop": true,
 "name": &"default2",
 "speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_524rm")
+}],
+"loop": true,
+"name": &"default3",
+"speed": 5.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gfjak"]
@@ -79,8 +92,8 @@ wait_time = 0.1
 one_shot = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(-1, -32)
-scale = Vector2(0.00762875, 0.00841892)
+position = Vector2(-1, -29)
+scale = Vector2(0.0296553, 0.032727)
 sprite_frames = SubResource("SpriteFrames_gmlin")
 autoplay = "default2"
 
