@@ -20,7 +20,7 @@ var horizontal_movement_direction = 1
 @onready var ray_cast_horizantal_buttom = $Raycasts/buttom
 @onready var ray_cast_horizantal_top = $Raycasts/top
 
-
+@onready var  LightMarker_position = $LightMarker.position.x 
 var buffered_jump = false
 var coyote_jump = false
 var was_on_floor = true
@@ -140,9 +140,11 @@ func _physics_process(delta):
 func _set_sprite_direction(direction: int) -> void:
 	if direction < 0.0:
 		$AnimatedSprite2D.flip_h = true
+		$LightMarker.position.x = - LightMarker_position
 
 	if direction > 0.0:
 		$AnimatedSprite2D.flip_h = false
+		$LightMarker.position.x = LightMarker_position
 
 	if velocity != Vector2.ZERO:
 		$AnimatedSprite2D.play("default")
