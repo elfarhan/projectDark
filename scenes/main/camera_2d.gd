@@ -49,7 +49,7 @@ func _physics_process(delta):
 	var base_position = global_position
 	var size = get_viewport_rect().size
 	#var width = 
-	print(size.length())
+	#print(size.length())
 	var desired_position = base_position + _current_lookahead_offset + shake_offset
 	desired_position.x = clamp(desired_position.x, limit_left, limit_right)
 	desired_position.y = clamp(desired_position.y, limit_top, limit_bottom)

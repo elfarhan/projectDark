@@ -17,7 +17,6 @@ func _on_spawn_timer_timeout():
 	add_child(Light.create(self.glim_radius, 0)) # TODO: dynamic = false
 
 func mark_picked_up(light):
-	print("test")
 	if self.respawn:
 		$SpawnTimer.start(self.delay)
 	light.radius = self.light_radius

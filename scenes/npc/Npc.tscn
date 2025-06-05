@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://b1cfr4gb1plnd"]
+[gd_scene load_steps=10 format=3 uid="uid://b1cfr4gb1plnd"]
 
 [ext_resource type="Script" uid="uid://bwuh72xgydidh" path="res://scenes/npc/npc.gd" id="1_vrj7p"]
 [ext_resource type="Texture2D" uid="uid://kdrhs6n7lsv4" path="res://AnimationSheet_Character 3.png" id="2_7yikv"]
+[ext_resource type="Script" uid="uid://rs65ddaqcsm1" path="res://scenes/lights/light_marker.gd" id="2_xsig2"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8p3si"]
 radius = 44.0454
@@ -53,6 +54,8 @@ shape = SubResource("CircleShape2D_8p3si")
 
 [node name="LightMarker" type="Marker2D" parent="."]
 position = Vector2(33, -47)
+script = ExtResource("2_xsig2")
+metadata/_custom_type_script = "uid://rs65ddaqcsm1"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(1.90735e-06, -48)

@@ -176,20 +176,17 @@ func carry_light(light):
 		light.get_parent().mark_picked_up(light)
 	
 	# Reparent to player marker
-	light.reparent($LightMarker)
-	light.position = Vector2.ZERO
-	light.set_dynamic(false)
+	light.anchor = $LightMarker
 
 	# update light radius
 	light.radius *= light.held_factor
 
 func drop_light():
-	self.carried_light.reparent(self.get_parent(), true)
-	
-	# Restore physics properties
-	self.carried_light.set_dynamic(true)
+	var light = self.carried_light
+	self.carried_light = null
+
+	light.anchor = null
 	
 	# update light radius
-	self.carried_light.radius /= self.carried_light.held_factor
+	light.radius /= light.held_factor
 	
-	self.carried_light = null

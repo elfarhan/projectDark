@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://bqrvec1lu3xkv"]
+[gd_scene load_steps=7 format=3 uid="uid://bqrvec1lu3xkv"]
 
 [ext_resource type="Script" uid="uid://bta3vr4b7ppss" path="res://scenes/lights/light.gd" id="1_vxin6"]
 [ext_resource type="Texture2D" uid="uid://fdytjq3132ee" path="res://photo-1616435577207-ca90abc6b732.png" id="3_xsjmc"]
@@ -18,9 +18,13 @@ fill_from = Vector2(0.5, 0.5)
 [sub_resource type="CircleShape2D" id="CircleShape2D_xsjmc"]
 radius = 11.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_bthvb"]
+radius = 54.1479
+
 [node name="Light" type="RigidBody2D"]
 collision_layer = 4
 collision_mask = 6
+gravity_scale = 0.2
 script = ExtResource("1_vxin6")
 metadata/_edit_group_ = true
 
@@ -41,5 +45,10 @@ texture = SubResource("GradientTexture2D_xsjmc")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_xsjmc")
+
+[node name="RepellArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RepellArea"]
+shape = SubResource("CircleShape2D_bthvb")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
