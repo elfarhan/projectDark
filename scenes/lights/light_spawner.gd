@@ -20,5 +20,5 @@ func mark_picked_up(light):
 	print("test")
 	if self.respawn:
 		$SpawnTimer.start(self.delay)
-	light.resize(self.light_radius)
+	light.radius = self.light_radius
 	light.set_timeout(self.light_timeout)

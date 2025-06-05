@@ -181,7 +181,7 @@ func carry_light(light):
 	light.set_dynamic(false)
 
 	# update light radius
-	light.resize(light.radius * light.held_factor)
+	light.radius *= light.held_factor
 
 func drop_light():
 	self.carried_light.reparent(self.get_parent(), true)
@@ -190,6 +190,6 @@ func drop_light():
 	self.carried_light.set_dynamic(true)
 	
 	# update light radius
-	self.carried_light.resize(self.carried_light.radius / self.carried_light.held_factor)
+	self.carried_light.radius /= self.carried_light.held_factor
 	
 	self.carried_light = null
