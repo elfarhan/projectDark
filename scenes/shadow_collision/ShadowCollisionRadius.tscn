@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://wuhv7n156aq7"]
+
+[ext_resource type="Script" uid="uid://bu7hef4037q1q" path="res://scenes/shadow_collision/shadow_collision_radius.gd" id="1_7x613"]
+
+[node name="ShadowCollisionRadius" type="Node2D"]
+script = ExtResource("1_7x613")
