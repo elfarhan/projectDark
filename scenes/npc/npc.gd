@@ -6,4 +6,4 @@ extends Area2D
 
 func fulfill():
 	self.needs = 0
-	$LightMarker.add_child(Light.create(self.radius, 0, false))
+	$LightMarker.add_child(Light.create(self.radius, 0))

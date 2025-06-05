@@ -1,0 +1,2 @@
+class_name LightMarker
+extends Marker2D

@@ -2,6 +2,19 @@
 class_name Light
 extends RigidBody2D
 
+# maximum binding force
+const bind_force: float = 10000
+# radius at which half the maximum binding force is applied
+const bind_radius: float = 2
+# how much to reduce bind force by depending on velocity
+const bind_smooth: float = 0.07
+const bind_damp: float = 1
+const bind_damp_radius: float = 20
+
+const repell_force: float = 20
+const repell_range: float = 50
+const damp: float = 0.3
+
 ## current radius of the light
 @export_range(0, 2048, 8) var radius = 256:
 	set(new_radius):
@@ -19,6 +32,8 @@ extends RigidBody2D
 @onready var timer = $Timer
 @onready var light = $PointLight2D
 
+var anchor = null
+
 # TODO: investigate flickering
 const blur_width: float = 20
 
@@ -30,24 +45,32 @@ func _ready():
 	self.rescale_texture()
 
 const scene = preload("res://scenes/lights/Light.tscn")
-static func create(radius, timeout, dynamic = true):
+static func create(radius, timeout):
 	var out = scene.instantiate()
 	out.radius = radius
 	out.timeout = timeout
-	out.set_dynamic(dynamic)
 	return out
-
-func set_dynamic(flag):
-	if flag:
-		self.linear_velocity = Vector2.ZERO
-		self.freeze = false
-		self.get_node(^"CollisionShape2D").disabled = false
-	else:
-		self.freeze = true
-		self.get_node(^"CollisionShape2D").disabled = true
 
 func rescale_texture():
 	light.texture_scale = radius / self.scale.x / 256
 
 func _on_timer_timeout():
 	light.enabled = false
+
+func _physics_process(delta):
+	self.linear_velocity *= self.damp ** delta
+	if self.anchor is LightMarker:
+		# bind strongly to light marker
+		var direction = (self.anchor.global_position - self.global_position
+			- self.linear_velocity * self.bind_smooth)
+		var distance = direction.length()
+		direction = direction.normalized()
+		var force = self.bind_force - self.bind_force * 0.5 ** (distance / self.bind_radius)
+		print(force)
+		self.apply_central_force(direction * force)
+
+		if distance < bind_damp_radius:
+			self.linear_velocity *= damp ** delta
+
+	for body in $RepellArea.get_overlapping_bodies():
+		pass

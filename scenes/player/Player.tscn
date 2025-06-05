@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://613bwmobbhqp" path="res://assets/characters/character.png" id="2_524rm"]
 [ext_resource type="Texture2D" uid="uid://kdrhs6n7lsv4" path="res://AnimationSheet_Character 3.png" id="3_gmlin"]
 [ext_resource type="AudioStream" uid="uid://dec8cmqawbs1b" path="res://assets/music/Dark Jump 4.ogg" id="5_tpg5x"]
+[ext_resource type="Script" uid="uid://rs65ddaqcsm1" path="res://scenes/lights/light_marker.gd" id="4_524rm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bjhaq"]
 size = Vector2(19, 42)
@@ -107,6 +108,8 @@ autoplay = "default2"
 
 [node name="LightMarker" type="Marker2D" parent="."]
 position = Vector2(22, -36)
+script = ExtResource("4_524rm")
+metadata/_custom_type_script = "uid://rs65ddaqcsm1"
 
 [node name="InteractionShape" type="Area2D" parent="."]
 visible = false
