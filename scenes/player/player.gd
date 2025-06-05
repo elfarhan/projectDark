@@ -165,7 +165,7 @@ func _input(event):
 			for area in $InteractionShape.get_overlapping_areas():
 				if area is Npc:
 					if area.needs > 0 and self.carried_light.radius >= area.needs:
-						self.carried_light.shrink(area.needs)
+						self.carried_light.radius -= area.needs
 						area.fulfill()
 
 func carry_light(light):
