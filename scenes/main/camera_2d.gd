@@ -54,7 +54,7 @@ func _physics_process(delta):
 	desired_position.x = clamp(desired_position.x, limit_left, limit_right)
 	desired_position.y = clamp(desired_position.y, limit_top, limit_bottom)
 
-	#offset = desired_position - base_position
+	offset = desired_position - base_position
 
 func ease_in_out_sine(start: float, end: float, delta_scaled: float) -> float:
 	var t = clamp(delta_scaled, 0.0, 1.0)
