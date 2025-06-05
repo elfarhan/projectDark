@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bxhpae2udrhjy"]
+[gd_scene load_steps=22 format=3 uid="uid://bxhpae2udrhjy"]
 
 [ext_resource type="Texture2D" uid="uid://b4ydhiemaff0i" path="res://Background/background1.png" id="1_dc040"]
 [ext_resource type="Texture2D" uid="uid://dfeirpj5jcrki" path="res://artwork/Bg1test.png" id="1_jsdfw"]
@@ -8,8 +8,9 @@
 [ext_resource type="Texture2D" uid="uid://d3xw4ay7rsoy7" path="res://main_lev_buildA.png" id="7_qkm1d"]
 [ext_resource type="PackedScene" uid="uid://be26eggrnftw" path="res://scenes/main/pause_menu.tscn" id="7_sjxhf"]
 [ext_resource type="Texture2D" uid="uid://h6q2n1n57hv4" path="res://artwork/Assettest(1).png" id="8_2tpxt"]
+[ext_resource type="PackedScene" uid="uid://b8hxt6ik0v1dm" path="res://scenes/platforms/TestPlatform.tscn" id="9_jsdfw"]
 [ext_resource type="Script" uid="uid://b8entpw3nvcxt" path="res://scenes/main/speedrun_timer.gd" id="9_ostsq"]
-[ext_resource type="Script" uid="uid://km6gh7dpkpxm" path="res://scenes/main/canvas_modulate.gd" id="10_2tpxt"]
+[ext_resource type="Script" path="res://scenes/main/canvas_modulate.gd" id="10_2tpxt"]
 [ext_resource type="PackedScene" uid="uid://dkw7vi40w1gto" path="res://scenes/lights/LightSpawner.tscn" id="10_3km4f"]
 [ext_resource type="PackedScene" uid="uid://bqrvec1lu3xkv" path="res://scenes/lights/Light.tscn" id="11_qkm1d"]
 [ext_resource type="PackedScene" uid="uid://b1cfr4gb1plnd" path="res://scenes/npc/Npc.tscn" id="12_p5fgu"]
@@ -2005,7 +2006,6 @@ scale = Vector2(3.12441, 2.07812)
 texture = ExtResource("1_dc040")
 
 [node name="CanvasModulate2" type="CanvasModulate" parent="ParallaxBackground"]
-visible = false
 script = ExtResource("10_2tpxt")
 
 [node name="ParallaxBackground2" type="ParallaxBackground" parent="."]
@@ -2054,6 +2054,9 @@ occluder = SubResource("OccluderPolygon2D_2tpxt")
 visible = false
 occluder = SubResource("OccluderPolygon2D_p5fgu")
 
+[node name="Platform" parent="TileMap2" instance=ExtResource("9_jsdfw")]
+position = Vector2(1057, -144)
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("7_sjxhf")]
@@ -2081,14 +2084,13 @@ energy = 1.5
 blend_mode = 2
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-visible = false
 script = ExtResource("10_2tpxt")
 
 [node name="LightSpawner" parent="." instance=ExtResource("10_3km4f")]
 position = Vector2(1203, 338)
 
 [node name="Light" parent="." instance=ExtResource("11_qkm1d")]
-position = Vector2(1655, 286)
+position = Vector2(1717, 156)
 
 [node name="Npc" parent="." instance=ExtResource("12_p5fgu")]
 position = Vector2(2561, 75)
