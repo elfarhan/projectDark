@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://07uran5fhmku"
+path="res://.godot/imported/Intro Song Slide In.ogg-505fa5a1d677e31f907d0813c56d0e7c.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/music/Intro Song Slide In.ogg"
+dest_files=["res://.godot/imported/Intro Song Slide In.ogg-505fa5a1d677e31f907d0813c56d0e7c.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

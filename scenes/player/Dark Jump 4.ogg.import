@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://o1k63gvvs8ss"
+path="res://.godot/imported/Dark Jump 4.ogg-f089a273db985337136660524bd1d72f.oggvorbisstr"
+
+[deps]
+
+source_file="res://scenes/player/Dark Jump 4.ogg"
+dest_files=["res://.godot/imported/Dark Jump 4.ogg-f089a273db985337136660524bd1d72f.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

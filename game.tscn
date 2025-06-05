@@ -1,12 +1,26 @@
 [gd_scene load_steps=3 format=3 uid="uid://86qy8ky2d6jl"]
 
 [ext_resource type="PackedScene" uid="uid://bxhpae2udrhjy" path="res://scenes/main/Main.tscn" id="1_80nbo"]
-[ext_resource type="PackedScene" uid="uid://5uobor5tx880" path="res://scenes/platform/Platform.tscn" id="2_e2o6t"]
+[ext_resource type="AudioStream" uid="uid://o1k63gvvs8ss" path="res://scenes/player/Dark Jump 4.ogg" id="2_e2o6t"]
 
 [node name="Game" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_80nbo")]
 position = Vector2(103, 23)
 
-[node name="Platform" parent="." instance=ExtResource("2_e2o6t")]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Player"]
+stream = ExtResource("2_e2o6t")
+volume_db = 3.748
+
+[node name="Platform" parent="."]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
 position = Vector2(1300, 882)
+script = null
