@@ -46,15 +46,20 @@ func _physics_process(delta):
 	_current_lookahead_offset.y = ease_in_out_sine(_current_lookahead_offset.y, target_look_ahead.y, delta * ease_speed)
 
 	# Combine effects
-	var base_position = global_position
-	var size = get_viewport_rect().size
-	#var width = 
-	print(size.length())
+	var base_position = player.global_position
+	var viewport_size = get_viewport_rect().size
 	var desired_position = base_position + _current_lookahead_offset + shake_offset
-	desired_position.x = clamp(desired_position.x, limit_left, limit_right)
-	desired_position.y = clamp(desired_position.y, limit_top, limit_bottom)
+	
+	# Correct clamping for top-left origin camera
+	desired_position.x = clamp(desired_position.x, 
+		limit_left + viewport_size.x * 0.5, 
+		limit_right - viewport_size.x * 0.5)
+	desired_position.y = clamp(desired_position.y,
+		limit_top + viewport_size.y * 0.5,
+		limit_bottom - viewport_size.y * 0.5)
 
-	offset = desired_position - base_position
+	# Set camera position
+	global_position = desired_position
 
 func ease_in_out_sine(start: float, end: float, delta_scaled: float) -> float:
 	var t = clamp(delta_scaled, 0.0, 1.0)
