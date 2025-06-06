@@ -8,7 +8,7 @@
 [node name="Player" parent="." instance=ExtResource("1_80nbo")]
 position = Vector2(103, 23)
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Player"]
+[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="Player"]
 stream = ExtResource("2_e2o6t")
 volume_db = 3.748
 

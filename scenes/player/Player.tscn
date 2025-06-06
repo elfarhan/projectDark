@@ -1,9 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://dxcvxert3buob"]
+[gd_scene load_steps=16 format=3 uid="uid://dxcvxert3buob"]
 
 [ext_resource type="Script" uid="uid://2nvoq7dsv0" path="res://scenes/player/player.gd" id="1_johqr"]
 [ext_resource type="Texture2D" uid="uid://cdlltw6tcri0i" path="res://artwork/Characterless.png" id="2_4kuee"]
 [ext_resource type="Texture2D" uid="uid://613bwmobbhqp" path="res://assets/characters/character.png" id="2_524rm"]
 [ext_resource type="Texture2D" uid="uid://kdrhs6n7lsv4" path="res://AnimationSheet_Character 3.png" id="3_gmlin"]
+[ext_resource type="AudioStream" uid="uid://dec8cmqawbs1b" path="res://assets/music/Dark Jump 4.ogg" id="5_tpg5x"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bjhaq"]
 size = Vector2(19, 42)
@@ -154,6 +155,9 @@ collision_mask = 2
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
 position = Vector2(0, -26)
 shape = SubResource("CapsuleShape2D_524rm")
+
+[node name="MusicJumpSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_tpg5x")
 
 [connection signal="timeout" from="CoyoteTimer" to="." method="_on_coyote_timer_timeout"]
 [connection signal="timeout" from="JumpBufferTimer" to="." method="_on_jump_buffer_timer_timeout"]

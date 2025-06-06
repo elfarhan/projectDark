@@ -68,6 +68,7 @@ func _ready() -> void:
 func jump():
 	velocity.y = jump_speed
 	$AnimatedSprite2D.play("default") # jump sprite
+	$MusicJumpSound.play(0.0)
 
 # variable jump height
 func _on_jump_height_timer_timeout() -> void:
