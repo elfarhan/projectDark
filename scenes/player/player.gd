@@ -19,6 +19,7 @@ var horizontal_movement_direction = 1
 @onready var ray_cast_horizontal = $Raycasts/horizontal
 @onready var ray_cast_horizantal_buttom = $Raycasts/buttom
 @onready var ray_cast_horizantal_top = $Raycasts/top
+@onready var gooe_node = $"../gooe_node"
 
 @onready var  LightMarker_position = $LightMarker.position.x 
 var buffered_jump = false
@@ -123,6 +124,8 @@ func _physics_process(delta):
 		_get_movement(deceleration*0.5, acceleration*.5, turn_speed*.01, delta) # air movement speed
 	var previous_velocity_y = velocity.y
 	_set_sprite_direction(direction)
+	#var containment_force = gooe_node._compute_player_containment_force()
+	#velocity += containment_force*delta
 	move_and_slide()
 	# buffered jumps
 	if !was_on_floor and is_on_floor():
