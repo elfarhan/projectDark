@@ -19,12 +19,12 @@ fill_from = Vector2(0.5, 0.5)
 radius = 11.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bthvb"]
-radius = 54.1479
+radius = 245.008
 
 [node name="Light" type="RigidBody2D"]
 collision_layer = 4
 collision_mask = 6
-gravity_scale = 0.2
+gravity_scale = 0.05
 script = ExtResource("1_vxin6")
 metadata/_edit_group_ = true
 
@@ -42,13 +42,18 @@ blend_mode = 2
 range_layer_min = -100
 shadow_enabled = true
 texture = SubResource("GradientTexture2D_xsjmc")
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_xsjmc")
 
 [node name="RepellArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RepellArea"]
 shape = SubResource("CircleShape2D_bthvb")
+metadata/_edit_lock_ = true
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

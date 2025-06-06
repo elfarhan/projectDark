@@ -13,8 +13,8 @@ const bind_smooth: float = 0.01
 const bind_track: float = 0.5
 const bind_track_radius: float = 30
 
-const repell_force: float = 20
-const repell_range: float = 50
+const repell_force: float = 50
+
 const damp: float = 0.3
 
 ## current radius of the light
@@ -68,7 +68,6 @@ func _physics_process(delta):
 		var distance = direction.length()
 		direction = direction.normalized()
 		var force = self.bind_force - self.bind_force * 0.5 ** (distance / self.bind_radius)
-		print(force)
 		self.apply_central_force(direction * force)
 
 		if distance < bind_track_radius and self.anchor.get_parent() is Player:
@@ -76,5 +75,37 @@ func _physics_process(delta):
 			self.linear_velocity *= (1 - factor)
 			self.linear_velocity += self.anchor.get_parent().velocity * factor
 
+	var repell_radius = $RepellArea/CollisionShape2D.shape.radius
+
 	for body in $RepellArea.get_overlapping_bodies():
-		pass
+		var polygon = body.get_node(^"CollisionPolygon2D")
+		if polygon == null:
+			continue
+		polygon = polygon.polygon
+
+		var force = Vector2.ZERO
+
+		for i in range(polygon.size()):
+			var prev = polygon[i - 1]
+			var point = polygon[i]
+			var next = polygon[(i + 1) % polygon.size()]
+
+			var d = point - self.position
+			var dist = d.length()
+			var dir = d.normalized()
+
+			# estimate surface normal from neighboring points
+			prev -= point
+			next -= point
+			var normal = -(prev + next).normalized()
+			# scale down repulsion from the side
+			var direction_factor = dir.dot(normal)
+
+			# add force in direction of surface normal, decrease linearly by distance
+			force += dir * direction_factor * max(repell_radius - dist, 0)
+
+		# divide by total point count to counteract polygon point density
+		force /= polygon.size()
+		# scale by repell force factor
+		force *= self.repell_force
+		self.apply_central_force(force)
