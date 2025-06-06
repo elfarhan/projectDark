@@ -3,13 +3,15 @@ class_name Light
 extends RigidBody2D
 
 # maximum binding force
-const bind_force: float = 10000
+const bind_force: float = 8000
 # radius at which half the maximum binding force is applied
-const bind_radius: float = 2
+const bind_radius: float = 10
 # how much to reduce bind force by depending on velocity
-const bind_smooth: float = 0.07
-const bind_damp: float = 1
-const bind_damp_radius: float = 20
+const bind_smooth: float = 0.01
+
+# how much to track player velocity if held
+const bind_track: float = 0.5
+const bind_track_radius: float = 30
 
 const repell_force: float = 20
 const repell_range: float = 50
@@ -69,8 +71,10 @@ func _physics_process(delta):
 		print(force)
 		self.apply_central_force(direction * force)
 
-		if distance < bind_damp_radius:
-			self.linear_velocity *= damp ** delta
+		if distance < bind_track_radius and self.anchor.get_parent() is Player:
+			var factor = self.bind_track ** delta
+			self.linear_velocity *= (1 - factor)
+			self.linear_velocity += self.anchor.get_parent().velocity * factor
 
 	for body in $RepellArea.get_overlapping_bodies():
 		pass
