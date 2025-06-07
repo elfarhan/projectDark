@@ -11,10 +11,10 @@ const PLAYER_REPULSION_FORCE :=  40.0
 const PLAYER_CONTAINMENT_THRESHOLD := 30
 const PLAYER_CONTAINMENT_FORCE := 230
 const  OCCLUDER_POINT_NUMBER_MULTIPLIER = 20
-@export var num_pts := 16
+@export var num_pts := 36
 @export var stretched_radius := 220.0
 @export var rest_radius := 200.0
-var MASS := rest_radius/num_pts*12# 1.0
+var MASS := 1#rest_radius/num_pts*12# 1.0
 
 
 var points = []
@@ -38,11 +38,11 @@ var scaled_player_containment: float
 
 func update_scaled_parameters():
 	var scale_factor = BASE_POINTS / float(num_pts)
-	scaled_mass = MASS * scale_factor
-	scaled_spring_constant = SPRING_CONSTANT / scale_factor
-	scaled_com_spring_constant = COM_SPRING_CONSTANT * scale_factor
-	scaled_player_repulsion = PLAYER_REPULSION_FORCE * scale_factor
-	scaled_player_containment = PLAYER_CONTAINMENT_FORCE * scale_factor
+	scaled_mass = MASS * scale_factor # correct
+	scaled_spring_constant = SPRING_CONSTANT * scale_factor
+	scaled_com_spring_constant = COM_SPRING_CONSTANT # correct
+	scaled_player_repulsion = PLAYER_REPULSION_FORCE * sqrt(scale_factor)
+	scaled_player_containment = PLAYER_CONTAINMENT_FORCE * sqrt(scale_factor)
 
 func initialize(player: Node2D, anchor: Node2D = null, fixed_anchor_point: Vector2 = Vector2.INF) -> void:
 	player_node = player
@@ -83,8 +83,8 @@ func update_physics(delta: float) -> void:
 
 	if first_step:
 		#_draw()
-		for i in range(num_pts):
-			velocities[i] = Vector2(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0)) * delta
+		#for i in range(num_pts):
+		#	velocities[i] = Vector2(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0)) * delta
 		first_step = false
 
 	var hooke_forces = _compute_hooke_forces()
