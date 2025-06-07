@@ -2100,8 +2100,12 @@ position = Vector2(1203, 338)
 [node name="Light" parent="." instance=ExtResource("11_qkm1d")]
 position = Vector2(1342, -746)
 
-[node name="Goo" parent="." instance=ExtResource("15_u8lgh")]
+[node name="Goo" parent="." node_paths=PackedStringArray("attach_to_node") instance=ExtResource("15_u8lgh")]
 position = Vector2(1331, -736)
+attach_to_node = NodePath("../Light")
+
+[node name="Goo2" parent="." instance=ExtResource("15_u8lgh")]
+position = Vector2(1975, -776)
 
 [node name="Npc" parent="." instance=ExtResource("12_p5fgu")]
 position = Vector2(2561, 75)
