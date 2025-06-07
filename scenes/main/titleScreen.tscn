@@ -204,6 +204,7 @@ offset_bottom = 129.0
 
 [node name="music title screen" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_qn2vq")
+volume_db = -18.739
 autoplay = true
 
 [connection signal="pressed" from="VBoxContainer/StartGame" to="." method="_on_start_game_pressed"]

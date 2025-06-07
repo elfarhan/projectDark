@@ -1,11 +1,11 @@
-[gd_scene load_steps=16 format=3 uid="uid://dxcvxert3buob"]
+[gd_scene load_steps=17 format=3 uid="uid://dxcvxert3buob"]
 
 [ext_resource type="Script" uid="uid://2nvoq7dsv0" path="res://scenes/player/player.gd" id="1_johqr"]
 [ext_resource type="Texture2D" uid="uid://cdlltw6tcri0i" path="res://artwork/Characterless.png" id="2_4kuee"]
 [ext_resource type="Texture2D" uid="uid://613bwmobbhqp" path="res://assets/characters/character.png" id="2_524rm"]
 [ext_resource type="Texture2D" uid="uid://kdrhs6n7lsv4" path="res://AnimationSheet_Character 3.png" id="3_gmlin"]
-[ext_resource type="AudioStream" uid="uid://dec8cmqawbs1b" path="res://assets/music/Dark Jump 4.ogg" id="5_tpg5x"]
 [ext_resource type="Script" uid="uid://rs65ddaqcsm1" path="res://scenes/lights/light_marker.gd" id="4_524rm"]
+[ext_resource type="AudioStream" uid="uid://dec8cmqawbs1b" path="res://assets/music/Dark Jump 4.ogg" id="5_tpg5x"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bjhaq"]
 size = Vector2(19, 42)
