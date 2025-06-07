@@ -9,12 +9,12 @@ const BASE_POINTS := 140.0 # base number of points for the current parameters
 const PLAYER_REPULSION_THRESHOLD := 20
 const PLAYER_REPULSION_FORCE :=  40.0
 const PLAYER_CONTAINMENT_THRESHOLD := 30
-const PLAYER_CONTAINMENT_FORCE := 230
-const  OCCLUDER_POINT_NUMBER_MULTIPLIER = 20
-@export var num_pts := 36
-@export var stretched_radius := 220.0
-@export var rest_radius := 200.0
-var MASS := 1#rest_radius/num_pts*12# 1.0
+const PLAYER_CONTAINMENT_FORCE := 130
+const  OCCLUDER_POINT_NUMBER_MULTIPLIER = 10
+@export var num_pts := 146
+@export var stretched_radius := 150.0
+@export var rest_radius := 120.0
+var MASS := 1
 
 
 var points = []
