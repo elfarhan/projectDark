@@ -138,6 +138,10 @@ func _physics_process(delta):
 	if was_on_floor and !is_on_floor() and velocity.y >=0:
 		jump_coyote_timer.start()
 		coyote_jump = true
+		
+	#apply goo force on player
+	var goo_force = compute_goo_force()
+	velocity += goo_force*delta
 
 # Flips the player sprite depending on their movemnt direction
 func _set_sprite_direction(direction: int) -> void:
@@ -198,3 +202,9 @@ func drop_light():
 	self.carried_light.radius /= self.carried_light.held_factor
 	
 	self.carried_light = null
+	
+func compute_goo_force():
+	var goo_force = Vector2(0.0,0.0)
+	for goo in get_tree().get_nodes_in_group("goo"):
+		goo_force += goo.get_goo_force()
+	return goo_force

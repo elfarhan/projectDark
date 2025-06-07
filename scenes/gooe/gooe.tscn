@@ -1,13 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://gfxxpmdpxm5u"]
+[gd_scene load_steps=8 format=3 uid="uid://gfxxpmdpxm5u"]
 
 [ext_resource type="PackedScene" uid="uid://b8hxt6ik0v1dm" path="res://scenes/platforms/TestPlatform.tscn" id="1_7wcaf"]
 [ext_resource type="PackedScene" uid="uid://dxcvxert3buob" path="res://scenes/player/Player.tscn" id="2_pmtj1"]
 [ext_resource type="PackedScene" uid="uid://bqrvec1lu3xkv" path="res://scenes/lights/Light.tscn" id="4_blowm"]
-[ext_resource type="Script" uid="uid://ceeib4pylfhde" path="res://scenes/gooe/gooe_manager.gd" id="4_xausj"]
+[ext_resource type="PackedScene" uid="uid://bwyyqs4u8xusi" path="res://scenes/goo/goo.tscn" id="4_xausj"]
+[ext_resource type="Script" uid="uid://km6gh7dpkpxm" path="res://scenes/main/canvas_modulate.gd" id="5_blowm"]
+[ext_resource type="Texture2D" uid="uid://dfeirpj5jcrki" path="res://artwork/Bg1test.png" id="6_e713r"]
+[ext_resource type="Texture2D" uid="uid://b4ydhiemaff0i" path="res://Background/background1.png" id="7_pu1y7"]
 
 [node name="Node2D" type="Node2D"]
 position = Vector2(614, 300)
-script = ExtResource("4_xausj")
 
 [node name="Platform" parent="." instance=ExtResource("1_7wcaf")]
 position = Vector2(0, 152)
@@ -22,6 +24,7 @@ position = Vector2(505, 166)
 position = Vector2(-1012, 148)
 
 [node name="gooe_node" type="Node2D" parent="."]
+visible = false
 
 [node name="Player" parent="." instance=ExtResource("2_pmtj1")]
 position = Vector2(-962, -75)
@@ -32,3 +35,35 @@ collision_mask = 7
 
 [node name="Light" parent="." instance=ExtResource("4_blowm")]
 position = Vector2(-825, -32)
+
+[node name="Goo" parent="." instance=ExtResource("4_xausj")]
+position = Vector2(-962, 13)
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+script = ExtResource("5_blowm")
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+layer = -1
+
+[node name="background" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2(1653, -1532)
+scale = Vector2(0.4, 0.4)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/background"]
+position = Vector2(-4012.5, 260)
+texture = ExtResource("6_e713r")
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+visible = false
+position = Vector2(-63, 0)
+motion_scale = Vector2(0.1, 0.1)
+motion_mirroring = Vector2(1330.82, 0)
+
+[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+visible = false
+position = Vector2(742, 350)
+scale = Vector2(3.12441, 2.07812)
+texture = ExtResource("7_pu1y7")
+
+[node name="CanvasModulate2" type="CanvasModulate" parent="ParallaxBackground"]
+script = ExtResource("5_blowm")

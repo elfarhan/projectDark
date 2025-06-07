@@ -1,17 +1,20 @@
-class_name Gooe
+class_name Goo
 extends Node2D
 
 const TWO_PI := 2.0 * PI
-const SPRING_CONSTANT := 440.0
+const SPRING_CONSTANT := 50#440.0
 const DAMPING_COEFF := 1.4
-const COM_SPRING_CONSTANT := 480.0
-const MASS := 1.0
-const PLAYER_REPULSION_THRESHOLD := 0.1
-const PLAYER_REPULSION_FORCE :=  4350.0
-
-@export var num_pts := 146
-@export var stretched_radius := 160.0
-@export var rest_radius := 150.0
+const COM_SPRING_CONSTANT := 600#480.0
+const BASE_POINTS := 140.0 # base number of points for the current parameters
+const PLAYER_REPULSION_THRESHOLD := 20
+const PLAYER_REPULSION_FORCE :=  40.0
+const PLAYER_CONTAINMENT_THRESHOLD := 30
+const PLAYER_CONTAINMENT_FORCE := 230
+const  OCCLUDER_POINT_NUMBER_MULTIPLIER = 20
+@export var num_pts := 16
+@export var stretched_radius := 220.0
+@export var rest_radius := 200.0
+var MASS := rest_radius/num_pts*12# 1.0
 
 
 var points = []
@@ -25,9 +28,25 @@ var player_node : Node2D
 var anchor_node: Node2D = null
 var anchor_point: Vector2
 var follow_anchor_node := false
+var player_containment_force = Vector2(0.0,0.0)
+
+var scaled_mass: float
+var scaled_spring_constant: float
+var scaled_com_spring_constant: float
+var scaled_player_repulsion: float
+var scaled_player_containment: float
+
+func update_scaled_parameters():
+	var scale_factor = BASE_POINTS / float(num_pts)
+	scaled_mass = MASS * scale_factor
+	scaled_spring_constant = SPRING_CONSTANT / scale_factor
+	scaled_com_spring_constant = COM_SPRING_CONSTANT * scale_factor
+	scaled_player_repulsion = PLAYER_REPULSION_FORCE * scale_factor
+	scaled_player_containment = PLAYER_CONTAINMENT_FORCE * scale_factor
 
 func initialize(player: Node2D, anchor: Node2D = null, fixed_anchor_point: Vector2 = Vector2.INF) -> void:
 	player_node = player
+	update_scaled_parameters()
 	if anchor != null:
 		anchor_node = anchor
 		follow_anchor_node = true
@@ -63,7 +82,7 @@ func update_physics(delta: float) -> void:
 		anchor_point = anchor_node.global_position
 
 	if first_step:
-		_draw()
+		#_draw()
 		for i in range(num_pts):
 			velocities[i] = Vector2(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0)) * delta
 		first_step = false
@@ -72,14 +91,15 @@ func update_physics(delta: float) -> void:
 	var drag_force = _compute_com_drag_force()
 	var player_force = _compute_player_repulsion_force()
 	var damping_forces = _compute_damping_forces()
+	player_containment_force = _compute_player_containment_force()
 	for i in range(num_pts):
 		var total_force = hooke_forces[i] + damping_forces[i] + drag_force[i] + player_force[i]
-		var acceleration = total_force / MASS
+		var acceleration = total_force / scaled_mass
 		velocities[i] += acceleration * delta
 		points[i] += velocities[i] * delta
 
 	_update_occluder_polygon()
-	queue_redraw()
+	#queue_redraw()
 
 func _compute_damping_forces() -> Array:
 	var damping_forces = []
@@ -105,8 +125,8 @@ func _compute_hooke_forces() -> Array:
 		dir1 = dir1.normalized()
 
 		spring_length = (TWO_PI * rest_radius) / num_pts
-		var force0 = SPRING_CONSTANT * (len0 - spring_length) * dir0
-		var force1 = SPRING_CONSTANT * (len1 - spring_length) * dir1
+		var force0 = scaled_spring_constant * (len0 - spring_length) * dir0
+		var force1 = scaled_spring_constant * (len1 - spring_length) * dir1
 		forces.append(force0 + force1)
 	return forces
 
@@ -117,7 +137,7 @@ func _compute_com_drag_force() -> Array:
 	# Make sure anchor_point is in global space
 	var displacement = anchor_point - com_global
 
-	var com_force = COM_SPRING_CONSTANT * displacement
+	var com_force = scaled_com_spring_constant * displacement
 	var force_per_point = com_force / num_pts
 
 	var forces := []
@@ -129,66 +149,76 @@ func _compute_com_drag_force() -> Array:
 func _compute_player_repulsion_force() -> Array:
 	var forces := []
 	var player_pos = player_node.global_position
-	var com_local = _get_center_of_mass()
-	var com_global = self.to_global(com_local)
-
+	var global_points := []
+	for pt in points:
+		global_points.append(to_global(pt))
+	
+	var is_inside = _is_point_inside_polygon(player_pos, global_points)
+	var SPRING_RANGE = scaled_player_repulsion
+	var SPRING_FORCE = PLAYER_REPULSION_THRESHOLD
+	
 	for i in range(num_pts):
-		var point_local = points[i]
-		var point_global = self.to_global(point_local)
-
-		var to_player = player_pos - point_global
-		var distance_to_player = to_player.length()
-		var distance_point_to_com = point_global.distance_to(com_global)
-
-		var activation_threshold = distance_point_to_com * 0.99
-
-		if abs(distance_to_player) / abs(distance_point_to_com) < 0.2:
-			var proximity_ratio = clamp(1.0 - (distance_to_player / activation_threshold), 0.0, 1.0)
-			var force_magnitude = PLAYER_REPULSION_FORCE * proximity_ratio
-			forces.append(-to_player.normalized() * force_magnitude)  # push outward
+		var current_point = global_points[i]
+		var next_point = global_points[(i + 1) % num_pts]
+		
+		# Find closest point on edge segment
+		var edge_vec = next_point - current_point
+		var edge_length = edge_vec.length()
+		var edge_dir = edge_vec.normalized()
+		var player_to_current = player_pos - current_point
+		var projection = player_to_current.dot(edge_dir)
+		var closest_point = current_point + edge_dir * clamp(projection, 0, edge_length)
+		var distance_to_edge = player_pos.distance_to(closest_point)
+		
+		if distance_to_edge < SPRING_RANGE:
+			# Spring calculation (push player away, pull point toward player)
+			var displacement = SPRING_RANGE - distance_to_edge
+			var force_magnitude = displacement * SPRING_FORCE
+			var force_dir = (player_pos - closest_point).normalized()
+			
+			# Reverse direction if outside
+			if !is_inside:
+				force_dir = -force_dir
+			
+			forces.append(-force_dir * force_magnitude) # Point force (opposite direction)
 		else:
 			forces.append(Vector2.ZERO)
-
+	
 	return forces
 
 func _compute_player_containment_force() -> Vector2:
 	var player_pos = player_node.global_position
 	var total_force = Vector2.ZERO
-
-	# Convert local points to global for the polygon check
 	var global_points := []
 	for pt in points:
 		global_points.append(to_global(pt))
 	
-	# Check if player is inside the shape in global space
-	if !_is_point_inside_polygon(player_pos, global_points):
-		return Vector2.ZERO
-
-	var com_global = to_global(_get_center_of_mass())
-	var avg_distance_to_com = 0.0
-
-	for pt in global_points:
-		avg_distance_to_com += pt.distance_to(com_global)
-	avg_distance_to_com /= num_pts
-
+	var is_inside = _is_point_inside_polygon(player_pos, global_points)
+	var SPRING_RANGE = PLAYER_CONTAINMENT_THRESHOLD
+	var SPRING_FORCE = scaled_player_containment
+	
 	for i in range(num_pts):
-		var point_global = global_points[i]
-		var to_player = player_pos - point_global
-		var distance_to_player = to_player.length()
+		var current_point = global_points[i]
+		var next_point = global_points[(i + 1) % num_pts]
 		
-		var threshold = avg_distance_to_com * 0.2
-
-		if distance_to_player < threshold:
-			var t = distance_to_player / threshold
-			var force_magnitude = PLAYER_REPULSION_FORCE * (1.0 - t)
-			total_force += to_player.normalized() * force_magnitude
-		else:
-			# Optional: gentle center pull can be added here
-			var to_center = com_global - player_pos
-			var force_magnitude = PLAYER_REPULSION_FORCE * 0.2
-			total_force += to_center.normalized() * force_magnitude
+		# Find closest point on edge segment
+		var edge_vec = next_point - current_point
+		var edge_length = edge_vec.length()
+		var edge_dir = edge_vec.normalized()
+		var player_to_current = player_pos - current_point
+		var projection = player_to_current.dot(edge_dir)
+		var closest_point = current_point + edge_dir * clamp(projection, 0, edge_length)
+		var distance_to_edge = player_pos.distance_to(closest_point)
+		
+		if distance_to_edge < SPRING_RANGE && is_inside:
+			# Spring calculation (push player inward)
+			var displacement = SPRING_RANGE - distance_to_edge
+			var force_magnitude = displacement * SPRING_FORCE
+			var force_dir = -(closest_point - player_pos).normalized() # Inward direction
+			total_force += force_dir * force_magnitude
 	
 	return total_force
+
 
 func _is_point_inside_polygon(point: Vector2, polygon: Array) -> bool:
 	var inside = false
@@ -210,14 +240,6 @@ func _get_center_of_mass() -> Vector2:
 		com += pt
 	return com / num_pts
 
-func _draw():
-	if points.is_empty():
-		return
-	for pt in points:
-		draw_circle(pt, 2.0, Color.WHITE)
-	for i in range(num_pts):
-		var next_i = (i + 1) % num_pts
-		draw_line(points[i], points[next_i], Color.GREEN, 1.5)
 
 func _create_occluder_polygon() -> PackedVector2Array:
 	var polygon = PackedVector2Array()
@@ -226,9 +248,9 @@ func _create_occluder_polygon() -> PackedVector2Array:
 	polygon.append(points[0])
 	return polygon
 
-func merge(other_band: Gooe) -> Gooe:
+func merge(other_band: Goo) -> Goo:
 	# Create new merged band
-	var merged_band = Gooe.new()
+	var merged_band = Goo.new()
 	print("merging")
 	
 	# Average properties
@@ -280,8 +302,8 @@ func should_split() -> bool:
 
 func split() -> Array:
 	# Create two new bands
-	var band1 = Gooe.new()
-	var band2 = Gooe.new()
+	var band1 = Goo.new()
+	var band2 = Goo.new()
 
 	# Configure new bands
 	for band in [band1, band2]:
@@ -307,15 +329,65 @@ func get_bounding_radius() -> float:
 	return max_distance
 
 
-func _update_occluder_polygon() -> void:
+#func _update_occluder_polygon() -> void:
 	# Reuse the same polygon array by modifying it in-place
-	var polygon = occluder_polygon.polygon
-	polygon.resize(0)  # Clear existing points
+#	var polygon = occluder_polygon.polygon
+#	polygon.resize(0)  # Clear existing points
+#	
+#	for i in range(num_pts):
+#		polygon.append(points[i])
+#	
+#	polygon.append(points[0])
+#	
+#	# Assign back to the polygon
+#	occluder_polygon.polygon = polygon
+
+func _update_occluder_polygon() -> void:
+	if num_pts < 2:
+		return  # Need at least 2 points for a curve
+		
+	# Create a new empty polygon array
+	var new_polygon = PackedVector2Array()
 	
+	# Parameters for curve resolution
+	var curve_steps := OCCLUDER_POINT_NUMBER_MULTIPLIER	# Number of points between original vertices
+	var tension := 0.5		# Controls curve tightness (0.0-1.0)
+	
+	# We'll create a closed cubic Bezier curve
 	for i in range(num_pts):
-		polygon.append(points[i])
+		var p0 = points[(i - 1 + num_pts) % num_pts]
+		var p1 = points[i]
+		var p2 = points[(i + 1) % num_pts]
+		var p3 = points[(i + 2) % num_pts]
+		
+		# Calculate control points for cubic Bezier
+		var cp1 = p1 + (p2 - p0) * tension / 6.0
+		var cp2 = p2 - (p3 - p1) * tension / 6.0
+		
+		# Add points along the curve segment
+		for j in range(curve_steps):
+			var t = float(j) / curve_steps
+			var q = cubic_bezier(p1, cp1, cp2, p2, t)
+			new_polygon.append(q)
 	
-	polygon.append(points[0])
+	# Close the polygon by adding the first point again
+	if new_polygon.size() > 0:
+		new_polygon.append(new_polygon[0])
 	
-	# Assign back to the polygon
-	occluder_polygon.polygon = polygon
+	# Assign the new polygon to the occluder
+	occluder_polygon.polygon = new_polygon
+
+# Cubic Bezier curve function
+func cubic_bezier(p0: Vector2, p1: Vector2, p2: Vector2, p3: Vector2, t: float) -> Vector2:
+	var tt = t * t
+	var ttt = tt * t
+	var u = 1.0 - t
+	var uu = u * u
+	var uuu = uu * u
+	
+	var q = uuu * p0
+	q += 3 * uu * t * p1
+	q += 3 * u * tt * p2
+	q += ttt * p3
+	
+	return q

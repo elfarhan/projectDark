@@ -1,13 +1,15 @@
 [gd_scene load_steps=2 format=3 uid="uid://b8hxt6ik0v1dm"]
 
-[ext_resource type="Texture2D" uid="uid://cad1i7o6004vl" path="res://icon.svg" id="2_mnfm1"]
+[ext_resource type="Texture2D" uid="uid://dyqmkxkfjdg63" path="res://assets/platforms/Ast2_var.png" id="1_pr4yw"]
 
 [node name="Platform" type="StaticBody2D"]
 collision_layer = 2
 collision_mask = 5
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-polygon = PackedVector2Array(-102, -44, 35, -55, 125, -35, 246, -49, 297, -2, 236, 35, 107, 34, 11, 47, -68, 28, -189, 43, -222, -9, -166, -66)
-
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_mnfm1")
+texture = ExtResource("1_pr4yw")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(16.9754, -18.9891)
+scale = Vector2(0.978426, 0.792701)
+polygon = PackedVector2Array(-595, -119, -529, -119, -518, -138, -405, -128, -350, -149, -318, -172, -246, -154, -227, -160, -146, -146, -100, -142, -68, -151, 29, -126, 87, -116, 120, -127, 153, -120, 175, -120, 251, -110, 345, -107, 380, -98, 397, -88, 420, -88, 438, -88, 461, -88, 515, -82, 529, -82, 529, -45, 529, 163, -589, 131, -608, -57, -624, -116)
